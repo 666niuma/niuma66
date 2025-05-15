@@ -1,0 +1,199 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.27.1.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: niu ma, a, LIC=QF82M-X16PW-74WS0-BIN0T-QV6YH-ZN186
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.27.1.0
+Toolchain Path:  E:\keil5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.27.1.0
+Dialog DLL:      DCM.DLL V1.17.2.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.6.0
+Dialog DLL:      TCM.DLL V1.36.1.0
+ 
+<h2>Project:</h2>
+E:\project\STM32Project\syq\syq\MDK-ARM\syq.uvprojx
+Project File Date:  05/15/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\keil5\ARM\ARMCC\Bin'
+Rebuild target 'syq'
+assembling startup_stm32f103xe.s...
+compiling stm32f1xx_hal_rcc_ex.c...
+compiling usart.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/usart.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal_gpio_ex.c...
+compiling stm32f1xx_hal_msp.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/stm32f1xx_hal_msp.c: 2 warnings, 0 errors
+compiling gpio.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/gpio.c: 2 warnings, 0 errors
+compiling stm32f1xx_it.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/stm32f1xx_it.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal_dma.c...
+compiling main.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/main.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal.c...
+compiling stm32f1xx_hal_gpio.c...
+compiling tim.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/tim.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal_rcc.c...
+compiling stm32f1xx_hal_cortex.c...
+compiling stm32f1xx_hal_tim_ex.c...
+compiling stm32f1xx_hal_tim.c...
+compiling move.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+User\move.c(116): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_2)
+User\move.c(116): error:  #20: identifier "STATE_SECTION_2" is undefined
+          if(currentstate == STATE_SECTION_2)
+User\move.c(121): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_4)
+User\move.c(121): error:  #20: identifier "STATE_SECTION_4" is undefined
+          if(currentstate == STATE_SECTION_4)
+User\move.c(111): warning:  #177-D: variable "distance"  was declared but never referenced
+      float distance = 0;
+User\move.c(112): warning:  #177-D: variable "speed"  was declared but never referenced
+      float speed = 0;
+User\move.c(144): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_3)
+User\move.c(144): error:  #20: identifier "STATE_SECTION_3" is undefined
+          if(currentstate == STATE_SECTION_3)
+User\move.c(149): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_4)
+User\move.c(149): error:  #20: identifier "STATE_SECTION_4" is undefined
+          if(currentstate == STATE_SECTION_4)
+User\move.c(139): warning:  #177-D: variable "distance"  was declared but never referenced
+      float distance = 0;
+User\move.c(140): warning:  #177-D: variable "speed"  was declared but never referenced
+      float speed = 0;
+User\move.c(171): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_2)
+User\move.c(171): error:  #20: identifier "STATE_SECTION_2" is undefined
+          if(currentstate == STATE_SECTION_2)
+User\move.c(176): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_3)
+User\move.c(176): error:  #20: identifier "STATE_SECTION_3" is undefined
+          if(currentstate == STATE_SECTION_3)
+User\move.c(165): warning:  #550-D: variable "time"  was set but never used
+      float time = 0;
+User\move.c(166): warning:  #177-D: variable "distance"  was declared but never referenced
+      float distance = 0;
+User\move.c(167): warning:  #177-D: variable "speed"  was declared but never referenced
+      float speed = 0;
+User\move.c(192): error:  #136: struct "<unnamed>"  has no field "SetSpeed_Vx"
+      move_stop->speed.SetSpeed_Vx  = 0;
+User\move.c(193): error:  #136: struct "<unnamed>"  has no field "SetSpeed_Vy"
+      move_stop->speed.SetSpeed_Vy  = 0;
+User\move.c(201): error:  #20: identifier "currentstate" is undefined
+      if (currentstate == STATE_SECTION_1)
+User\move.c(201): error:  #20: identifier "STATE_SECTION_1" is undefined
+      if (currentstate == STATE_SECTION_1)
+User\move.c(211): error:  #20: identifier "STATE_SECTION_2" is undefined
+      else if (currentstate == STATE_SECTION_2)
+User\move.c(221): error:  #20: identifier "STATE_SECTION_3" is undefined
+      else if (currentstate == STATE_SECTION_3)
+User\move.c(231): error:  #20: identifier "STATE_SECTION_4" is undefined
+      else if (currentstate == STATE_SECTION_4)
+User\move.c(241): error:  #20: identifier "STATE_DONE" is undefined
+      else if (currentstate == STATE_DONE)
+User\move.c(254): warning:  #223-D: function "state_machine_init" declared implicitly
+      state_machine_init();
+User\move.c(268): error:  #159: declaration is incompatible with previous "state_machine_init"  (declared at line 254)
+  void state_machine_init(VehicleState *currentstate)
+User\move.c(268): warning:  #550-D: parameter "currentstate"  was set but never used
+  void state_machine_init(VehicleState *currentstate)
+User\move.c(292): error:  #20: identifier "condition_met" is undefined
+              if (condition_met)
+User\move.c(301): error:  #20: identifier "condition_met" is undefined
+              if (condition_met)
+User\move.c(310): error:  #20: identifier "condition_met" is undefined
+              if (condition_met)
+User\move.c: 11 warnings, 24 errors
+compiling system_stm32f1xx.c...
+compiling stm32f1xx_hal_pwr.c...
+compiling stm32f1xx_hal_exti.c...
+compiling stm32f1xx_hal_flash_ex.c...
+compiling stm32f1xx_hal_flash.c...
+compiling bsp_Chassis.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+User\bsp_Chassis.c: 2 warnings, 0 errors
+compiling Servo.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+User\Servo.c: 2 warnings, 0 errors
+compiling chassis.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+User\chassis.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal_uart.c...
+"syq\syq.axf" - 24 Error(s), 29 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.5.1.pack
+                ARM.CMSIS.5.5.1
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.2.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.2.0.pack
+                Keil.STM32F1xx_DFP.2.2.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_syq
+  E:\keil5\ARM\PACK\ARM\CMSIS\5.5.1\CMSIS\Core\Include
+  E:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.2.0
+Target not created.
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>
