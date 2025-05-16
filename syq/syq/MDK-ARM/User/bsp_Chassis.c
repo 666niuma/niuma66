@@ -11,6 +11,7 @@ void Motor_Init(Chassis_Motor_t *Motor_init)
         Motor_init->motor[i].motor_fdb.speed_fdb = 0;
         Motor_init->motor[i].motor_fdb.encoder_fdb = 0;
         
+        
 	}
     //各个电机的最大转速
 

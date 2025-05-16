@@ -59,5 +59,6 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "main.h": "c"
-  }
+  },
+  "editor.fontSize": 17
 }

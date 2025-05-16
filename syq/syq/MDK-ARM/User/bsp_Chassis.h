@@ -15,7 +15,8 @@ typedef struct
 {
     float speed_fdb;
     int16_t encoder_fdb;
-
+    float last_Vx;
+    float last_Vy;
 }MOTOR_FDB;
 
 typedef struct 
