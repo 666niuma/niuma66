@@ -31,6 +31,7 @@ typedef struct
     MOTOR_SET   motor_set;
     MOTOR_FDB   motor_fdb;
     MOTOR_GPIO  motor_gpio;
+    unsigned int  tim_channel;
 }MOTOR_T;
 
 typedef struct
@@ -46,6 +47,7 @@ typedef struct
 	float anglespeed_set;
     float pid_anglespeed;
 	float anglespeed_fdb;
+    unsigned int motor_TIM;
 }Chassis_Motor_t;
 
 

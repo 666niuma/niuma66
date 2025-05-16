@@ -16,7 +16,7 @@ void move_init()
 void time_calc(move_t *move_time_calc)
 {
     //时间计算
-    // 1ms
+    
     move_time_calc->time_acceleration = (maxVx - V0) / ACCELERATION;
     move_time_calc->time_deceleration = (maxVx - V0) / DECELERATION;
     float distance_acceleration = V0 * move_time_calc->time_acceleration + 0.5 * ACCELERATION * move_time_calc->time_acceleration * move_time_calc->time_acceleration;
@@ -30,7 +30,6 @@ void time_calc(move_t *move_time_calc)
     {
         move_time_calc->time_constant = 0;
     } 
-    
 }
 
 
@@ -43,59 +42,59 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     // 判断是否有设定x轴或y轴速度，再决定是否加速
     if (move.speed.Speed_Vx != 0)
     {
-        if (move.speed.Speed_Vx < move.speed.Speed_Vx)
+        if (motor.chassisVx < move.speed.Speed_Vx)
         {
-            move.speed.Speed_Vx += ACCELERATION * motor_time;
-            if (move.speed.Speed_Vx > move.speed.Speed_Vx)
+            motor.chassisVx += ACCELERATION * motor_time;
+            if (motor.chassisVx > move.speed.Speed_Vx)
                 {
-                    move.speed.Speed_Vx = move.speed.Speed_Vx;
+                    motor.chassisVx = move.speed.Speed_Vx;
                 }
         }
-        else if (move.speed.Speed_Vx > move.speed.Speed_Vx)
+        else if (motor.chassisVx > move.speed.Speed_Vx)
         {
-            move.speed.Speed_Vx -= ACCELERATION * motor_time;
-            if (move.speed.Speed_Vx < move.speed.Speed_Vx)
-                move.speed.Speed_Vx = move.speed.Speed_Vx;
+            motor.chassisVx -= ACCELERATION * motor_time;
+            if (motor.chassisVx < move.speed.Speed_Vx)
+                motor.chassisVx = move.speed.Speed_Vx;
         }
     }
     else 
     {
-        move.speed.Speed_Vx = 0;
+        motor.chassisVx = 0;
     }
 
 
     if (move.speed.Speed_Vy != 0)
     {
-        if (move.speed.Speed_Vy < move.speed.Speed_Vy)
+        if (motor.chassisVy < move.speed.Speed_Vy)
         {
-            move.speed.Speed_Vy += ACCELERATION * motor_time;
-            if (move.speed.Speed_Vy > move.speed.Speed_Vy)
-                move.speed.Speed_Vy = move.speed.Speed_Vy;
+            motor.chassisVy += ACCELERATION * motor_time;
+            if (motor.chassisVy > move.speed.Speed_Vy)
+                motor.chassisVy = move.speed.Speed_Vy;
         }
-        else if (move.speed.Speed_Vy > move.speed.Speed_Vy)
+        else if (motor.chassisVy > move.speed.Speed_Vy)
         {
-            move.speed.Speed_Vy -= ACCELERATION * motor_time;
-            if (move.speed.Speed_Vy < move.speed.Speed_Vy)
-                move.speed.Speed_Vy = move.speed.Speed_Vy;
+            motor.chassisVy -= ACCELERATION * motor_time;
+            if (motor.chassisVy < move.speed.Speed_Vy)
+                motor.chassisVy = move.speed.Speed_Vy;
         }
     }
     }
         else 
         {
-            move.speed.Speed_Vy = 0;
+            motor.chassisVy = 0;
         }
     
         
-        if (move.speed.Speed_Vx > maxVx)
+        if (motor.chassisVx > maxVx)
         {
-            move.speed.Speed_Vx = maxVx;
+            motor.chassisVx = maxVx;
         }
-        move.speed.Speed_Vy = move.speed.Speed_Vy + ACCELERATION * motor_time;
-        if (move.speed.Speed_Vy > maxVy)
+
+        if (motor.chassisVy > maxVy)
         {
-            move.speed.Speed_Vy = maxVy;
+            motor.chassisVy = maxVy;
         }
-        
+        Task_Chassis();
 }
 
 
@@ -195,6 +194,14 @@ void move_stop(move_t *move_stop)
     //更新速度
 }
 
+void Chassis_Set_Speed_From_Move(Chassis_Motor_t *chassis, move_t *move)
+{
+    float vx = move->speed.Speed_Vx;
+    float vy = move->speed.Speed_Vy;
+    chassis->chassisVx = vx;
+    chassis->chassisVy = vy;
+}
+
 void Task_move()
 {
     // Infinite loop
@@ -245,13 +252,14 @@ void Task_move()
     }
 }
 
-
 void Task()
 {
     Motor_Init(&Motor);
     Servo_Init();
-    HAL_Delay(100-1);
     state_machine_init();
+    move_init();
+
+
 }
 
 typedef enum

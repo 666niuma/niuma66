@@ -22,154 +22,286 @@ Dialog DLL:      TCM.DLL V1.36.1.0
  
 <h2>Project:</h2>
 E:\project\STM32Project\syq\syq\MDK-ARM\syq.uvprojx
-Project File Date:  05/15/2025
+Project File Date:  05/16/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\keil5\ARM\ARMCC\Bin'
 Rebuild target 'syq'
 assembling startup_stm32f103xe.s...
-compiling stm32f1xx_hal_rcc_ex.c...
-compiling usart.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/usart.c: 2 warnings, 0 errors
 compiling stm32f1xx_hal_gpio_ex.c...
-compiling stm32f1xx_hal_msp.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/stm32f1xx_hal_msp.c: 2 warnings, 0 errors
-compiling gpio.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/gpio.c: 2 warnings, 0 errors
-compiling stm32f1xx_it.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/stm32f1xx_it.c: 2 warnings, 0 errors
-compiling stm32f1xx_hal_dma.c...
 compiling main.c...
 ./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
 ./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
   #ifndef __CHASSIS_H#define __CHASSIS_H
 ../Core/Src/main.c: 2 warnings, 0 errors
-compiling stm32f1xx_hal.c...
+compiling usart.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/usart.c: 2 warnings, 0 errors
+compiling gpio.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/gpio.c: 2 warnings, 0 errors
 compiling stm32f1xx_hal_gpio.c...
+compiling stm32f1xx_hal_rcc_ex.c...
+compiling stm32f1xx_hal.c...
+compiling stm32f1xx_hal_rcc.c...
+compiling stm32f1xx_hal_cortex.c...
+compiling stm32f1xx_hal_dma.c...
+compiling stm32f1xx_hal_msp.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/stm32f1xx_hal_msp.c: 2 warnings, 0 errors
+compiling stm32f1xx_it.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+../Core/Src/stm32f1xx_it.c: 2 warnings, 0 errors
 compiling tim.c...
 ./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
 ./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
   #ifndef __CHASSIS_H#define __CHASSIS_H
 ../Core/Src/tim.c: 2 warnings, 0 errors
-compiling stm32f1xx_hal_rcc.c...
-compiling stm32f1xx_hal_cortex.c...
 compiling stm32f1xx_hal_tim_ex.c...
+compiling pid.c...
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(50): warning:  #47-D: incompatible redefinition of macro "__MPU_PRESENT"  (declared at line 163 of "E:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\stm32f10x.h")
+   #define __MPU_PRESENT             0U       /*!< Other STM32 devices does not provide an MPU  */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(51): warning:  #47-D: incompatible redefinition of macro "__NVIC_PRIO_BITS"  (declared at line 165 of "E:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\stm32f10x.h")
+  #define __NVIC_PRIO_BITS           4U       /*!< STM32 uses 4 Bits for the Priority Levels    */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(52): warning:  #47-D: incompatible redefinition of macro "__Vendor_SysTickConfig"  (declared at line 166 of "E:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\stm32f10x.h")
+  #define __Vendor_SysTickConfig     0U       /*!< Set to 1 if different SysTick Config is used */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(71): error:  #101: "NonMaskableInt_IRQn" has already been declared in the current scope
+    NonMaskableInt_IRQn         = -14,    /*!< 2 Non Maskable Interrupt                             */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(73): error:  #101: "MemoryManagement_IRQn" has already been declared in the current scope
+    MemoryManagement_IRQn       = -12,    /*!< 4 Cortex-M3 Memory Management Interrupt              */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(74): error:  #101: "BusFault_IRQn" has already been declared in the current scope
+    BusFault_IRQn               = -11,    /*!< 5 Cortex-M3 Bus Fault Interrupt                      */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(75): error:  #101: "UsageFault_IRQn" has already been declared in the current scope
+    UsageFault_IRQn             = -10,    /*!< 6 Cortex-M3 Usage Fault Interrupt                    */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(76): error:  #101: "SVCall_IRQn" has already been declared in the current scope
+    SVCall_IRQn                 = -5,     /*!< 11 Cortex-M3 SV Call Interrupt                       */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(77): error:  #101: "DebugMonitor_IRQn" has already been declared in the current scope
+    DebugMonitor_IRQn           = -4,     /*!< 12 Cortex-M3 Debug Monitor Interrupt                 */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(78): error:  #101: "PendSV_IRQn" has already been declared in the current scope
+    PendSV_IRQn                 = -2,     /*!< 14 Cortex-M3 Pend SV Interrupt                       */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(79): error:  #101: "SysTick_IRQn" has already been declared in the current scope
+    SysTick_IRQn                = -1,     /*!< 15 Cortex-M3 System Tick Interrupt                   */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(82): error:  #101: "WWDG_IRQn" has already been declared in the current scope
+    WWDG_IRQn                   = 0,      /*!< Window WatchDog Interrupt                            */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(83): error:  #101: "PVD_IRQn" has already been declared in the current scope
+    PVD_IRQn                    = 1,      /*!< PVD through EXTI Line detection Interrupt            */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(84): error:  #101: "TAMPER_IRQn" has already been declared in the current scope
+    TAMPER_IRQn                 = 2,      /*!< Tamper Interrupt                                     */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(85): error:  #101: "RTC_IRQn" has already been declared in the current scope
+    RTC_IRQn                    = 3,      /*!< RTC global Interrupt                                 */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(86): error:  #101: "FLASH_IRQn" has already been declared in the current scope
+    FLASH_IRQn                  = 4,      /*!< FLASH global Interrupt                               */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(87): error:  #101: "RCC_IRQn" has already been declared in the current scope
+    RCC_IRQn                    = 5,      /*!< RCC global Interrupt                                 */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(88): error:  #101: "EXTI0_IRQn" has already been declared in the current scope
+    EXTI0_IRQn                  = 6,      /*!< EXTI Line0 Interrupt                                 */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(89): error:  #101: "EXTI1_IRQn" has already been declared in the current scope
+    EXTI1_IRQn                  = 7,      /*!< EXTI Line1 Interrupt                                 */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(90): error:  #101: "EXTI2_IRQn" has already been declared in the current scope
+    EXTI2_IRQn                  = 8,      /*!< EXTI Line2 Interrupt                                 */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(91): error:  #101: "EXTI3_IRQn" has already been declared in the current scope
+    EXTI3_IRQn                  = 9,      /*!< EXTI Line3 Interrupt                                 */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(92): error:  #101: "EXTI4_IRQn" has already been declared in the current scope
+    EXTI4_IRQn                  = 10,     /*!< EXTI Line4 Interrupt                                 */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(93): error:  #101: "DMA1_Channel1_IRQn" has already been declared in the current scope
+    DMA1_Channel1_IRQn          = 11,     /*!< DMA1 Channel 1 global Interrupt                      */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(94): error:  #101: "DMA1_Channel2_IRQn" has already been declared in the current scope
+    DMA1_Channel2_IRQn          = 12,     /*!< DMA1 Channel 2 global Interrupt                      */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(95): error:  #101: "DMA1_Channel3_IRQn" has already been declared in the current scope
+    DMA1_Channel3_IRQn          = 13,     /*!< DMA1 Channel 3 global Interrupt                      */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(96): error:  #101: "DMA1_Channel4_IRQn" has already been declared in the current scope
+    DMA1_Channel4_IRQn          = 14,     /*!< DMA1 Channel 4 global Interrupt                      */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(97): error:  #101: "DMA1_Channel5_IRQn" has already been declared in the current scope
+    DMA1_Channel5_IRQn          = 15,     /*!< DMA1 Channel 5 global Interrupt                      */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(98): error:  #101: "DMA1_Channel6_IRQn" has already been declared in the current scope
+    DMA1_Channel6_IRQn          = 16,     /*!< DMA1 Channel 6 global Interrupt                      */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(99): error:  #101: "DMA1_Channel7_IRQn" has already been declared in the current scope
+    DMA1_Channel7_IRQn          = 17,     /*!< DMA1 Channel 7 global Interrupt                      */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(100): error:  #101: "ADC1_2_IRQn" has already been declared in the current scope
+    ADC1_2_IRQn                 = 18,     /*!< ADC1 and ADC2 global Interrupt                       */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(101): error:  #101: "USB_HP_CAN1_TX_IRQn" has already been declared in the current scope
+    USB_HP_CAN1_TX_IRQn         = 19,     /*!< USB Device High Priority or CAN1 TX Interrupts       */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(102): error:  #101: "USB_LP_CAN1_RX0_IRQn" has already been declared in the current scope
+    USB_LP_CAN1_RX0_IRQn        = 20,     /*!< USB Device Low Priority or CAN1 RX0 Interrupts       */
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(103): error:  #101: "CAN1_RX1_IRQn" has already been declared in the current scope
+    CAN1_RX1_IRQn               = 21,     /*!< CAN1 RX1 Interrupt                                   */
+User\pid.c: 3 warnings, 30 errors
 compiling stm32f1xx_hal_tim.c...
-compiling move.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-User\move.c(116): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_2)
-User\move.c(116): error:  #20: identifier "STATE_SECTION_2" is undefined
-          if(currentstate == STATE_SECTION_2)
-User\move.c(121): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_4)
-User\move.c(121): error:  #20: identifier "STATE_SECTION_4" is undefined
-          if(currentstate == STATE_SECTION_4)
-User\move.c(111): warning:  #177-D: variable "distance"  was declared but never referenced
-      float distance = 0;
-User\move.c(112): warning:  #177-D: variable "speed"  was declared but never referenced
-      float speed = 0;
-User\move.c(144): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_3)
-User\move.c(144): error:  #20: identifier "STATE_SECTION_3" is undefined
-          if(currentstate == STATE_SECTION_3)
-User\move.c(149): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_4)
-User\move.c(149): error:  #20: identifier "STATE_SECTION_4" is undefined
-          if(currentstate == STATE_SECTION_4)
-User\move.c(139): warning:  #177-D: variable "distance"  was declared but never referenced
-      float distance = 0;
-User\move.c(140): warning:  #177-D: variable "speed"  was declared but never referenced
-      float speed = 0;
-User\move.c(171): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_2)
-User\move.c(171): error:  #20: identifier "STATE_SECTION_2" is undefined
-          if(currentstate == STATE_SECTION_2)
-User\move.c(176): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_3)
-User\move.c(176): error:  #20: identifier "STATE_SECTION_3" is undefined
-          if(currentstate == STATE_SECTION_3)
-User\move.c(165): warning:  #550-D: variable "time"  was set but never used
-      float time = 0;
-User\move.c(166): warning:  #177-D: variable "distance"  was declared but never referenced
-      float distance = 0;
-User\move.c(167): warning:  #177-D: variable "speed"  was declared but never referenced
-      float speed = 0;
-User\move.c(192): error:  #136: struct "<unnamed>"  has no field "SetSpeed_Vx"
-      move_stop->speed.SetSpeed_Vx  = 0;
-User\move.c(193): error:  #136: struct "<unnamed>"  has no field "SetSpeed_Vy"
-      move_stop->speed.SetSpeed_Vy  = 0;
-User\move.c(201): error:  #20: identifier "currentstate" is undefined
-      if (currentstate == STATE_SECTION_1)
-User\move.c(201): error:  #20: identifier "STATE_SECTION_1" is undefined
-      if (currentstate == STATE_SECTION_1)
-User\move.c(211): error:  #20: identifier "STATE_SECTION_2" is undefined
-      else if (currentstate == STATE_SECTION_2)
-User\move.c(221): error:  #20: identifier "STATE_SECTION_3" is undefined
-      else if (currentstate == STATE_SECTION_3)
-User\move.c(231): error:  #20: identifier "STATE_SECTION_4" is undefined
-      else if (currentstate == STATE_SECTION_4)
-User\move.c(241): error:  #20: identifier "STATE_DONE" is undefined
-      else if (currentstate == STATE_DONE)
-User\move.c(254): warning:  #223-D: function "state_machine_init" declared implicitly
-      state_machine_init();
-User\move.c(268): error:  #159: declaration is incompatible with previous "state_machine_init"  (declared at line 254)
-  void state_machine_init(VehicleState *currentstate)
-User\move.c(268): warning:  #550-D: parameter "currentstate"  was set but never used
-  void state_machine_init(VehicleState *currentstate)
-User\move.c(292): error:  #20: identifier "condition_met" is undefined
-              if (condition_met)
-User\move.c(301): error:  #20: identifier "condition_met" is undefined
-              if (condition_met)
-User\move.c(310): error:  #20: identifier "condition_met" is undefined
-              if (condition_met)
-User\move.c: 11 warnings, 24 errors
-compiling system_stm32f1xx.c...
 compiling stm32f1xx_hal_pwr.c...
-compiling stm32f1xx_hal_exti.c...
-compiling stm32f1xx_hal_flash_ex.c...
 compiling stm32f1xx_hal_flash.c...
+compiling stm32f1xx_hal_flash_ex.c...
+compiling stm32f1xx_hal_exti.c...
 compiling bsp_Chassis.c...
 ./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
 ./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
   #ifndef __CHASSIS_H#define __CHASSIS_H
-User\bsp_Chassis.c: 2 warnings, 0 errors
+User\bsp_Chassis.c(29): error:  #513: a value of type "TIM_HandleTypeDef" cannot be assigned to an entity of type "unsigned int"
+      Motor_init->motor_TIM = htim8;
+User\bsp_Chassis.c(41): error:  #132: expression must have pointer-to-struct-or-union type
+              __HAL_TIM_SET_COMPARE(&Motor_pwm_set->motor_TIM,  Motor_pwm_set->motor[i].tim_channel,  Motor_pwm_set->motor[i].motor_set.duty_set);
+User\bsp_Chassis.c(41): error:  #132: expression must have pointer-to-struct-or-union type
+              __HAL_TIM_SET_COMPARE(&Motor_pwm_set->motor_TIM,  Motor_pwm_set->motor[i].tim_channel,  Motor_pwm_set->motor[i].motor_set.duty_set);
+User\bsp_Chassis.c(41): error:  #132: expression must have pointer-to-struct-or-union type
+              __HAL_TIM_SET_COMPARE(&Motor_pwm_set->motor_TIM,  Motor_pwm_set->motor[i].tim_channel,  Motor_pwm_set->motor[i].motor_set.duty_set);
+User\bsp_Chassis.c(41): error:  #132: expression must have pointer-to-struct-or-union type
+              __HAL_TIM_SET_COMPARE(&Motor_pwm_set->motor_TIM,  Motor_pwm_set->motor[i].tim_channel,  Motor_pwm_set->motor[i].motor_set.duty_set);
+User\bsp_Chassis.c: 2 warnings, 5 errors
+compiling stm32f1xx_hal_uart.c...
+compiling move.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+User\move.c(45): error:  #20: identifier "motor" is undefined
+          if (motor.chassisVx < move.speed.Speed_Vx)
+User\move.c(62): error:  #20: identifier "motor" is undefined
+          motor.chassisVx = 0;
+User\move.c(68): error:  #20: identifier "motor" is undefined
+          if (motor.chassisVy < move.speed.Speed_Vy)
+User\move.c(84): error:  #20: identifier "motor" is undefined
+              motor.chassisVy = 0;
+User\move.c(88): error:  #20: identifier "motor" is undefined
+          if (motor.chassisVx > maxVx)
+User\move.c(93): error:  #20: identifier "motor" is undefined
+          if (motor.chassisVy > maxVy)
+User\move.c(97): warning:  #223-D: function "Task_Chassis" declared implicitly
+          Task_Chassis();
+User\move.c(115): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_2)
+User\move.c(115): error:  #20: identifier "STATE_SECTION_2" is undefined
+          if(currentstate == STATE_SECTION_2)
+User\move.c(120): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_4)
+User\move.c(120): error:  #20: identifier "STATE_SECTION_4" is undefined
+          if(currentstate == STATE_SECTION_4)
+User\move.c(110): warning:  #177-D: variable "distance"  was declared but never referenced
+      float distance = 0;
+User\move.c(111): warning:  #177-D: variable "speed"  was declared but never referenced
+      float speed = 0;
+User\move.c(143): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_3)
+User\move.c(143): error:  #20: identifier "STATE_SECTION_3" is undefined
+          if(currentstate == STATE_SECTION_3)
+User\move.c(148): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_4)
+User\move.c(148): error:  #20: identifier "STATE_SECTION_4" is undefined
+          if(currentstate == STATE_SECTION_4)
+User\move.c(138): warning:  #177-D: variable "distance"  was declared but never referenced
+      float distance = 0;
+User\move.c(139): warning:  #177-D: variable "speed"  was declared but never referenced
+      float speed = 0;
+User\move.c(170): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_2)
+User\move.c(170): error:  #20: identifier "STATE_SECTION_2" is undefined
+          if(currentstate == STATE_SECTION_2)
+User\move.c(175): error:  #20: identifier "currentstate" is undefined
+          if(currentstate == STATE_SECTION_3)
+User\move.c(175): error:  #20: identifier "STATE_SECTION_3" is undefined
+          if(currentstate == STATE_SECTION_3)
+User\move.c(164): warning:  #550-D: variable "time"  was set but never used
+      float time = 0;
+User\move.c(165): warning:  #177-D: variable "distance"  was declared but never referenced
+      float distance = 0;
+User\move.c(166): warning:  #177-D: variable "speed"  was declared but never referenced
+      float speed = 0;
+User\move.c(191): error:  #136: struct "<unnamed>"  has no field "SetSpeed_Vx"
+      move_stop->speed.SetSpeed_Vx  = 0;
+User\move.c(192): error:  #136: struct "<unnamed>"  has no field "SetSpeed_Vy"
+      move_stop->speed.SetSpeed_Vy  = 0;
+User\move.c(197): error:  #147-D: declaration is incompatible with "void Chassis_Set_Speed_From_Move(Chassis_Motor_t *, float, float)"  (declared at line 24 of "./User/chassis.h")
+  void Chassis_Set_Speed_From_Move(Chassis_Motor_t *chassis, move_t *move)
+User\move.c(208): error:  #20: identifier "currentstate" is undefined
+      if (currentstate == STATE_SECTION_1)
+User\move.c(208): error:  #20: identifier "STATE_SECTION_1" is undefined
+      if (currentstate == STATE_SECTION_1)
+User\move.c(218): error:  #20: identifier "STATE_SECTION_2" is undefined
+      else if (currentstate == STATE_SECTION_2)
+User\move.c(228): error:  #20: identifier "STATE_SECTION_3" is undefined
+      else if (currentstate == STATE_SECTION_3)
+User\move.c(238): error:  #20: identifier "STATE_SECTION_4" is undefined
+      else if (currentstate == STATE_SECTION_4)
+User\move.c(248): error:  #20: identifier "STATE_DONE" is undefined
+      else if (currentstate == STATE_DONE)
+User\move.c(259): warning:  #223-D: function "state_machine_init" declared implicitly
+      state_machine_init();
+User\move.c(276): error:  #159: declaration is incompatible with previous "state_machine_init"  (declared at line 259)
+  void state_machine_init(VehicleState *currentstate)
+User\move.c(276): warning:  #550-D: parameter "currentstate"  was set but never used
+  void state_machine_init(VehicleState *currentstate)
+User\move.c(300): error:  #20: identifier "condition_met" is undefined
+              if (condition_met)
+User\move.c(309): error:  #20: identifier "condition_met" is undefined
+              if (condition_met)
+User\move.c: 12 warnings, 30 errors
+compiling encoder.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+User\encoder.c(20): error:  #20: identifier "textcoder" is undefined
+              textcoder = __HAL_TIM_GET_COUNTER(&htim1);
+User\encoder.c(23): error:  #54-D: too few arguments in invocation of macro "__HAL_TIM_SET_COUNTER" 
+              __HAL_TIM_SET_COUNTER(&htim1) = 0x7fff;
+User\encoder.c(23): error:  #29: expected an expression
+              __HAL_TIM_SET_COUNTER(&htim1) = 0x7fff;
+User\encoder.c(23): error:  #137: expression must be a modifiable lvalue
+              __HAL_TIM_SET_COUNTER(&htim1) = 0x7fff;
+User\encoder.c(28): error:  #54-D: too few arguments in invocation of macro "__HAL_TIM_SET_COUNTER" 
+              __HAL_TIM_SET_COUNTER(&htim2) = 0x7fff;
+User\encoder.c(28): error:  #29: expected an expression
+              __HAL_TIM_SET_COUNTER(&htim2) = 0x7fff;
+User\encoder.c(28): error:  #137: expression must be a modifiable lvalue
+              __HAL_TIM_SET_COUNTER(&htim2) = 0x7fff;
+User\encoder.c(33): error:  #54-D: too few arguments in invocation of macro "__HAL_TIM_SET_COUNTER" 
+              __HAL_TIM_SET_COUNTER(&htim3) = 0x7fff;
+User\encoder.c(33): error:  #29: expected an expression
+              __HAL_TIM_SET_COUNTER(&htim3) = 0x7fff;
+User\encoder.c(33): error:  #137: expression must be a modifiable lvalue
+              __HAL_TIM_SET_COUNTER(&htim3) = 0x7fff;
+User\encoder.c(38): error:  #54-D: too few arguments in invocation of macro "__HAL_TIM_SET_COUNTER" 
+              __HAL_TIM_SET_COUNTER(&htim4) = 0x7fff;
+User\encoder.c(38): error:  #29: expected an expression
+              __HAL_TIM_SET_COUNTER(&htim4) = 0x7fff;
+User\encoder.c(38): error:  #137: expression must be a modifiable lvalue
+              __HAL_TIM_SET_COUNTER(&htim4) = 0x7fff;
+User\encoder.c: 2 warnings, 13 errors
+compiling chassis.c...
+./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
+  void Servo_Init();
+./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
+  #ifndef __CHASSIS_H#define __CHASSIS_H
+User\chassis.c(35): error:  #20: identifier "ChassisMotor" is undefined
+          Chassis_PID[i].mode = ChassisMotor.pidMode;
+User\chassis.c(84): warning:  #223-D: function "Chassis_ReadEncoder" declared implicitly
+          Motor_fdb->motor[i].motor_fdb.encoder_fdb = Chassis_ReadEncoder(i + 1);
+User\chassis.c(96): warning:  #223-D: function "Motor_PWM_Set" declared implicitly
+      Motor_PWM_Set(&Motor);
+User\chassis.c(97): warning:  #1-D: last line of file ends without a newline
+  }
+User\chassis.c: 5 warnings, 1 error
+compiling system_stm32f1xx.c...
 compiling Servo.c...
 ./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
   void Servo_Init();
 ./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
   #ifndef __CHASSIS_H#define __CHASSIS_H
 User\Servo.c: 2 warnings, 0 errors
-compiling chassis.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-User\chassis.c: 2 warnings, 0 errors
-compiling stm32f1xx_hal_uart.c...
-"syq\syq.axf" - 24 Error(s), 29 Warning(s).
+"syq\syq.axf" - 79 Error(s), 38 Warning(s).
 
 <h2>Software Packages used:</h2>
 

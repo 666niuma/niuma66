@@ -38,4 +38,6 @@ syq\stm32f1xx_it.o: ./User/bsp_Chassis.h
 syq\stm32f1xx_it.o: ./User/move.h
 syq\stm32f1xx_it.o: ./User/chassis.h
 syq\stm32f1xx_it.o: E:\keil5\ARM\ARMCC\Bin\..\include\math.h
+syq\stm32f1xx_it.o: ./User/pid.h
+syq\stm32f1xx_it.o: ./User/encoder.h
 syq\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_it.h

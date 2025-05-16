@@ -38,3 +38,5 @@ syq\bsp_chassis.o: ./User/bsp_Chassis.h
 syq\bsp_chassis.o: ./User/move.h
 syq\bsp_chassis.o: ./User/chassis.h
 syq\bsp_chassis.o: E:\keil5\ARM\ARMCC\Bin\..\include\math.h
+syq\bsp_chassis.o: ./User/pid.h
+syq\bsp_chassis.o: ./User/encoder.h

@@ -41,6 +41,8 @@ extern "C" {
 #include "move.h"
 #include "chassis.h"
 #include "math.h"
+#include "pid.h"
+#include "encoder.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

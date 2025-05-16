@@ -6,7 +6,7 @@
 #define NULL            0
 #define Wheel_R         30.0f       //轮子半径
 #define PI              3.1415926f  //PI
-#define Motor_i         30.0f       //减速比
+#define gear_ratio         30.0f       //减速比
 #define NPN             13.0f       //转一圈的脉冲数
 #define T               100         //编码器arr
 #define r               188.14      //底盘半径

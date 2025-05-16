@@ -39,3 +39,5 @@ syq\tim.o: ./User/bsp_Chassis.h
 syq\tim.o: ./User/move.h
 syq\tim.o: ./User/chassis.h
 syq\tim.o: E:\keil5\ARM\ARMCC\Bin\..\include\math.h
+syq\tim.o: ./User/pid.h
+syq\tim.o: ./User/encoder.h

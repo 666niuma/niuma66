@@ -38,3 +38,5 @@ syq\stm32f1xx_hal_msp.o: ./User/bsp_Chassis.h
 syq\stm32f1xx_hal_msp.o: ./User/move.h
 syq\stm32f1xx_hal_msp.o: ./User/chassis.h
 syq\stm32f1xx_hal_msp.o: E:\keil5\ARM\ARMCC\Bin\..\include\math.h
+syq\stm32f1xx_hal_msp.o: ./User/pid.h
+syq\stm32f1xx_hal_msp.o: ./User/encoder.h

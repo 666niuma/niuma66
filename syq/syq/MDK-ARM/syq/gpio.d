@@ -39,3 +39,5 @@ syq\gpio.o: ./User/bsp_Chassis.h
 syq\gpio.o: ./User/move.h
 syq\gpio.o: ./User/chassis.h
 syq\gpio.o: E:\keil5\ARM\ARMCC\Bin\..\include\math.h
+syq\gpio.o: ./User/pid.h
+syq\gpio.o: ./User/encoder.h
