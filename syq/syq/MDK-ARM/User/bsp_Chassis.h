@@ -2,6 +2,18 @@
 #define __BSP_CHASSIS_H
 #include "main.h"
 
+#define Motor1_IN1 GPIO_PIN_2
+#define Motor1_IN2 GPIO_PIN_3
+#define Motor2_IN1 GPIO_PIN_4
+#define Motor2_IN2 GPIO_PIN_5
+#define Motor3_IN1 GPIO_PIN_0
+#define Motor3_IN2 GPIO_PIN_1
+#define Motor4_IN1 GPIO_PIN_10
+#define Motor4_IN2 GPIO_PIN_12
+#define Motor1_Port GPIOC
+#define Motor2_Port GPIOC
+#define Motor3_Port GPIOC
+#define Motor4_Port GPIOA
 
 
 typedef struct
@@ -51,7 +63,7 @@ typedef struct
     unsigned int motor_TIM;
 }Chassis_Motor_t;
 
-
+#define Motor
 
 
 void Motor_Init(Chassis_Motor_t *Motor_init);

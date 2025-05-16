@@ -17,25 +17,24 @@ int16_t Chassis_ReadEncoder(uint8_t TIMX)
     switch(TIMX)
     {
         case 1:
-            textcoder = __HAL_TIM_GET_COUNTER(&htim1);
             ReadData = __HAL_TIM_GET_COUNTER(&htim1);
             EncoderData = ReadData - 0x7fff;
-            __HAL_TIM_SET_COUNTER(&htim1) = 0x7fff;
+            __HAL_TIM_SET_COUNTER(&htim1,0x7fff);
             break;
         case 2:
             ReadData = __HAL_TIM_GET_COUNTER(&htim2);
             EncoderData = ReadData - 0x7fff;
-            __HAL_TIM_SET_COUNTER(&htim2) = 0x7fff;
+            __HAL_TIM_SET_COUNTER(&htim2,0x7fff);
             break;
         case 3:
             ReadData = __HAL_TIM_GET_COUNTER(&htim3);
             EncoderData = ReadData - 0x7fff;
-            __HAL_TIM_SET_COUNTER(&htim3) = 0x7fff;
+            __HAL_TIM_SET_COUNTER(&htim3,0x7fff);
             break;
         case 4:
             ReadData = __HAL_TIM_GET_COUNTER(&htim4);
             EncoderData = ReadData - 0x7fff;
-            __HAL_TIM_SET_COUNTER(&htim4) = 0x7fff;
+            __HAL_TIM_SET_COUNTER(&htim4,0x7fff);
             break;
         default:
             EncoderData = 0;

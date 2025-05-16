@@ -1,13 +1,24 @@
 #include "main.h"
 #include "tim.h"
+#include "bsp_Chassis.h"
 move_t move;
 Servo_t Servo;
 Chassis_Motor_t Motor;
 
+typedef enum
+{
+    STATE_SECTION_1,
+    STATE_SECTION_2,
+    STATE_SECTION_3,
+    STATE_SECTION_4,
+    STATE_DONE
+}VehicleState;
+
+
 void move_init()
 {
-    move.speed.Speed_Vx = 0;
-    move.speed.Speed_Vy = 0;
+    move.speed_set.Speed_Vx = 0;
+    move.speed_set.Speed_Vy = 0;
     move.distance = 0;
     move.time_acceleration = 0;                                                                                                                                                                                                                           
     move.time_deceleration = 0;
@@ -42,68 +53,68 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         //定时器中断
         //更新pwm值
     // 判断是否有设定x轴或y轴速度，再决定是否加速
-        if (move.speed_set.Speed_Vx != 0)
-        {
-            if (motor.chassisVx < move.speed_set.Speed_Vx)
-            {
-                motor.chassisVx += ACCELERATION * motor_time;
-                if (motor.chassisVx > move.speed_set.Speed_Vx)
-                {
-                    motor.chassisVx = move.speed_set.Speed_Vx;
-                }
-            }
-            else if (motor.chassisVx > move.speed_set.Speed_Vx)
-            {
-                motor.chassisVx -= ACCELERATION * motor_time;
-                if (motor.chassisVx < move.speed_set.Speed_Vx)
-                    motor.chassisVx = move.speed_set.Speed_Vx;
-            }
-            else if (motor.chassisVx >= maxVx)
-            {
-                motor.chassisVx = maxVx;
-            }
-            else if(motor.chassisVx <= -maxVx)
-            {
-                motor.chassisVx = -maxVx;
-            }
-        }
+//        if (move.speed_set.Speed_Vx != 0)
+//        {
+//            if (motor.chassisVx < move.speed_set.Speed_Vx)
+//            {
+//                motor.chassisVx += ACCELERATION * motor_time;
+//                if (motor.chassisVx > move.speed_set.Speed_Vx)
+//                {
+//                    motor.chassisVx = move.speed_set.Speed_Vx;
+//                }
+//            }
+//            else if (motor.chassisVx > move.speed_set.Speed_Vx)
+//            {
+//                motor.chassisVx -= ACCELERATION * motor_time;
+//                if (motor.chassisVx < move.speed_set.Speed_Vx)
+//                    motor.chassisVx = move.speed_set.Speed_Vx;
+//            }
+//            else if (motor.chassisVx >= maxVx)
+//            {
+//                motor.chassisVx = maxVx;
+//            }
+//            else if(motor.chassisVx <= -maxVx)
+//            {
+//                motor.chassisVx = -maxVx;
+//            }
+//        }
 
-        {
-            motor.chassisVx = 0;
-        }
+//        {
+//            motor.chassisVx = 0;
+//        }
 
 
-        if (move.speed_set.Speed_Vy != 0)
-        {
-            if (motor.chassisVy < move.speed_set.Speed_Vy)
-            {
-                motor.chassisVy += ACCELERATION * motor_time;
-                if (motor.chassisVy > move.speed_set.Speed_Vy)
-                    motor.chassisVy = move.speed_set.Speed_Vy;
-            }
-            else if (motor.chassisVy > move.speed.Speed_Vy)
-            {
-                motor.chassisVy -= ACCELERATION * motor_time;
-                if (motor.chassisVy < move.speed_set.Speed_Vy)
-                    motor.chassisVy = move.speed_set.Speed_Vy;
-            }
-            else if (motor.chassisVy >= maxVy)
-            {
-                motor.chassisVy = maxVy;
-            }
-            else if(motor.chassisVy <= -maxVy)
-            {
-                motor.chassisVy = -maxVy;
-            }
-        }
-        else 
-        {
-            motor.chassisVy = 0;
-        }
-        
-        
+//        if (move.speed_set.Speed_Vy != 0)
+//        {
+//            if (motor.chassisVy < move.speed_set.Speed_Vy)
+//            {
+//                motor.chassisVy += ACCELERATION * motor_time;
+//                if (motor.chassisVy > move.speed_set.Speed_Vy)
+//                    motor.chassisVy = move.speed_set.Speed_Vy;
+//            }
+//            else if (motor.chassisVy > move.speed.Speed_Vy)
+//            {
+//                motor.chassisVy -= ACCELERATION * motor_time;
+//                if (motor.chassisVy < move.speed_set.Speed_Vy)
+//                    motor.chassisVy = move.speed_set.Speed_Vy;
+//            }
+//            else if (motor.chassisVy >= maxVy)
+//            {
+//                motor.chassisVy = maxVy;
+//            }
+//            else if(motor.chassisVy <= -maxVy)
+//            {
+//                motor.chassisVy = -maxVy;
+//            }
+//        }
+//        else 
+//        {
+//            motor.chassisVy = 0;
+//        }
+//        
+//        
 
-        Task_Chassis();//速度解算
+//        Task_Chassis();//速度解算
         
     }
 }
@@ -123,47 +134,35 @@ void move_stop(move_t *move_stop)
 }
 
 
-void Task_move()
+void Task_move(VehicleState *currentstate)
 {
     // Infinite loop
     if (currentstate == STATE_SECTION_1)
     {
         move_init();
         move.distance = START_TO_LIGHT_DISTANCE;
-        time_calc(&move);
-        move_linearAcceleration(&move);
-        move_constant(&move);
-        move_deceleration(&move);
+
         move_stop(&move);
     }
     else if (currentstate == STATE_SECTION_2)
     {
         move_init();
         move.distance = LIGHT_TO_ENDLINE_DISTANCE;
-        time_calc(&move);
-        move_linearAcceleration(&move);
-        move_constant(&move);
-        move_deceleration(&move);
+
         move_stop(&move);
     }
     else if (currentstate == STATE_SECTION_3)
     {
         move_init();
         move.distance = ENDLINE_TO_FINAL;
-        time_calc(&move);
-        move_linearAcceleration(&move);
-        move_constant(&move);
-        move_deceleration(&move);
+
         move_stop(&move);
     }
     else if (currentstate == STATE_SECTION_4)
     {
         move_init();
         move.distance = ENDLINE_TO_FINAL;
-        time_calc(&move);
-        move_linearAcceleration(&move);
-        move_constant(&move);
-        move_deceleration(&move);
+
         move_stop(&move);
     }
     else if (currentstate == STATE_DONE)
@@ -172,31 +171,16 @@ void Task_move()
         move_stop(&move);
     }
 }
-
+VehicleState currentstate = STATE_SECTION_1;
 void Move_Init(void)
 {
     Motor_Init(&Motor);
     Servo_Init();
-    state_machine_init();
     move_init();
 }
 
-typedef enum
-{
-    STATE_SECTION_1,
-    STATE_SECTION_2,
-    STATE_SECTION_3,
-    STATE_SECTION_4,
-    STATE_DONE
-}VehicleState;
 
-VehicleState currentstate = STATE_SECTION_1;
 
-void state_machine_init(VehicleState *currentstate)
-{
-    // Initialize the state machine
-    currentstate = STATE_SECTION_1;
-}
 
 void state_machine_update()
 {

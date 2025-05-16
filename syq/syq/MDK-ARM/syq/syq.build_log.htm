@@ -21,56 +21,26 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.6.0
 Dialog DLL:      TCM.DLL V1.36.1.0
  
 <h2>Project:</h2>
-E:\project\STM32Project\syq\syq\MDK-ARM\syq.uvprojx
+E:\github_store\niuma66-\syq\syq\MDK-ARM\syq.uvprojx
 Project File Date:  05/16/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'E:\keil5\ARM\ARMCC\Bin'
 Rebuild target 'syq'
 assembling startup_stm32f103xe.s...
-compiling stm32f1xx_hal_gpio_ex.c...
-compiling main.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/main.c: 2 warnings, 0 errors
 compiling usart.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/usart.c: 2 warnings, 0 errors
-compiling gpio.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/gpio.c: 2 warnings, 0 errors
-compiling stm32f1xx_hal_gpio.c...
-compiling stm32f1xx_hal_rcc_ex.c...
-compiling stm32f1xx_hal.c...
 compiling stm32f1xx_hal_rcc.c...
+compiling main.c...
+compiling stm32f1xx_hal_gpio_ex.c...
+compiling gpio.c...
 compiling stm32f1xx_hal_cortex.c...
-compiling stm32f1xx_hal_dma.c...
-compiling stm32f1xx_hal_msp.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/stm32f1xx_hal_msp.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal.c...
+compiling stm32f1xx_hal_gpio.c...
 compiling stm32f1xx_it.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/stm32f1xx_it.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal_rcc_ex.c...
+compiling stm32f1xx_hal_msp.c...
 compiling tim.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-../Core/Src/tim.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal_dma.c...
 compiling stm32f1xx_hal_tim_ex.c...
 compiling pid.c...
 ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h(50): warning:  #47-D: incompatible redefinition of macro "__MPU_PRESENT"  (declared at line 163 of "E:\keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\stm32f10x.h")
@@ -143,165 +113,38 @@ User\pid.c: 3 warnings, 30 errors
 compiling stm32f1xx_hal_tim.c...
 compiling stm32f1xx_hal_pwr.c...
 compiling stm32f1xx_hal_flash.c...
-compiling stm32f1xx_hal_flash_ex.c...
 compiling stm32f1xx_hal_exti.c...
-compiling bsp_Chassis.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-User\bsp_Chassis.c(29): error:  #513: a value of type "TIM_HandleTypeDef" cannot be assigned to an entity of type "unsigned int"
-      Motor_init->motor_TIM = htim8;
-User\bsp_Chassis.c(41): error:  #132: expression must have pointer-to-struct-or-union type
-              __HAL_TIM_SET_COMPARE(&Motor_pwm_set->motor_TIM,  Motor_pwm_set->motor[i].tim_channel,  Motor_pwm_set->motor[i].motor_set.duty_set);
-User\bsp_Chassis.c(41): error:  #132: expression must have pointer-to-struct-or-union type
-              __HAL_TIM_SET_COMPARE(&Motor_pwm_set->motor_TIM,  Motor_pwm_set->motor[i].tim_channel,  Motor_pwm_set->motor[i].motor_set.duty_set);
-User\bsp_Chassis.c(41): error:  #132: expression must have pointer-to-struct-or-union type
-              __HAL_TIM_SET_COMPARE(&Motor_pwm_set->motor_TIM,  Motor_pwm_set->motor[i].tim_channel,  Motor_pwm_set->motor[i].motor_set.duty_set);
-User\bsp_Chassis.c(41): error:  #132: expression must have pointer-to-struct-or-union type
-              __HAL_TIM_SET_COMPARE(&Motor_pwm_set->motor_TIM,  Motor_pwm_set->motor[i].tim_channel,  Motor_pwm_set->motor[i].motor_set.duty_set);
-User\bsp_Chassis.c: 2 warnings, 5 errors
-compiling stm32f1xx_hal_uart.c...
+compiling stm32f1xx_hal_flash_ex.c...
 compiling move.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-User\move.c(45): error:  #20: identifier "motor" is undefined
-          if (motor.chassisVx < move.speed.Speed_Vx)
-User\move.c(62): error:  #20: identifier "motor" is undefined
-          motor.chassisVx = 0;
-User\move.c(68): error:  #20: identifier "motor" is undefined
-          if (motor.chassisVy < move.speed.Speed_Vy)
-User\move.c(84): error:  #20: identifier "motor" is undefined
-              motor.chassisVy = 0;
-User\move.c(88): error:  #20: identifier "motor" is undefined
-          if (motor.chassisVx > maxVx)
-User\move.c(93): error:  #20: identifier "motor" is undefined
-          if (motor.chassisVy > maxVy)
-User\move.c(97): warning:  #223-D: function "Task_Chassis" declared implicitly
-          Task_Chassis();
-User\move.c(115): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_2)
-User\move.c(115): error:  #20: identifier "STATE_SECTION_2" is undefined
-          if(currentstate == STATE_SECTION_2)
-User\move.c(120): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_4)
-User\move.c(120): error:  #20: identifier "STATE_SECTION_4" is undefined
-          if(currentstate == STATE_SECTION_4)
-User\move.c(110): warning:  #177-D: variable "distance"  was declared but never referenced
-      float distance = 0;
-User\move.c(111): warning:  #177-D: variable "speed"  was declared but never referenced
-      float speed = 0;
-User\move.c(143): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_3)
-User\move.c(143): error:  #20: identifier "STATE_SECTION_3" is undefined
-          if(currentstate == STATE_SECTION_3)
-User\move.c(148): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_4)
-User\move.c(148): error:  #20: identifier "STATE_SECTION_4" is undefined
-          if(currentstate == STATE_SECTION_4)
-User\move.c(138): warning:  #177-D: variable "distance"  was declared but never referenced
-      float distance = 0;
-User\move.c(139): warning:  #177-D: variable "speed"  was declared but never referenced
-      float speed = 0;
-User\move.c(170): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_2)
-User\move.c(170): error:  #20: identifier "STATE_SECTION_2" is undefined
-          if(currentstate == STATE_SECTION_2)
-User\move.c(175): error:  #20: identifier "currentstate" is undefined
-          if(currentstate == STATE_SECTION_3)
-User\move.c(175): error:  #20: identifier "STATE_SECTION_3" is undefined
-          if(currentstate == STATE_SECTION_3)
-User\move.c(164): warning:  #550-D: variable "time"  was set but never used
-      float time = 0;
-User\move.c(165): warning:  #177-D: variable "distance"  was declared but never referenced
-      float distance = 0;
-User\move.c(166): warning:  #177-D: variable "speed"  was declared but never referenced
-      float speed = 0;
-User\move.c(191): error:  #136: struct "<unnamed>"  has no field "SetSpeed_Vx"
-      move_stop->speed.SetSpeed_Vx  = 0;
-User\move.c(192): error:  #136: struct "<unnamed>"  has no field "SetSpeed_Vy"
-      move_stop->speed.SetSpeed_Vy  = 0;
-User\move.c(197): error:  #147-D: declaration is incompatible with "void Chassis_Set_Speed_From_Move(Chassis_Motor_t *, float, float)"  (declared at line 24 of "./User/chassis.h")
-  void Chassis_Set_Speed_From_Move(Chassis_Motor_t *chassis, move_t *move)
-User\move.c(208): error:  #20: identifier "currentstate" is undefined
-      if (currentstate == STATE_SECTION_1)
-User\move.c(208): error:  #20: identifier "STATE_SECTION_1" is undefined
-      if (currentstate == STATE_SECTION_1)
-User\move.c(218): error:  #20: identifier "STATE_SECTION_2" is undefined
+User\move.c(6): warning:  #64-D: declaration does not declare anything
+  Chassis_Motor_t Motor;
+User\move.c(147): error:  #42: operand types are incompatible ("VehicleState *" and "int")
       else if (currentstate == STATE_SECTION_2)
-User\move.c(228): error:  #20: identifier "STATE_SECTION_3" is undefined
+User\move.c(154): error:  #42: operand types are incompatible ("VehicleState *" and "int")
       else if (currentstate == STATE_SECTION_3)
-User\move.c(238): error:  #20: identifier "STATE_SECTION_4" is undefined
+User\move.c(161): error:  #42: operand types are incompatible ("VehicleState *" and "int")
       else if (currentstate == STATE_SECTION_4)
-User\move.c(248): error:  #20: identifier "STATE_DONE" is undefined
+User\move.c(168): error:  #42: operand types are incompatible ("VehicleState *" and "int")
       else if (currentstate == STATE_DONE)
-User\move.c(259): warning:  #223-D: function "state_machine_init" declared implicitly
-      state_machine_init();
-User\move.c(276): error:  #159: declaration is incompatible with previous "state_machine_init"  (declared at line 259)
-  void state_machine_init(VehicleState *currentstate)
-User\move.c(276): warning:  #550-D: parameter "currentstate"  was set but never used
-  void state_machine_init(VehicleState *currentstate)
-User\move.c(300): error:  #20: identifier "condition_met" is undefined
+User\move.c(177): error:  #29: expected an expression
+      Motor_Init(&Motor);
+User\move.c(203): error:  #20: identifier "condition_met" is undefined
               if (condition_met)
-User\move.c(309): error:  #20: identifier "condition_met" is undefined
+User\move.c(212): error:  #20: identifier "condition_met" is undefined
               if (condition_met)
-User\move.c: 12 warnings, 30 errors
-compiling encoder.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-User\encoder.c(20): error:  #20: identifier "textcoder" is undefined
-              textcoder = __HAL_TIM_GET_COUNTER(&htim1);
-User\encoder.c(23): error:  #54-D: too few arguments in invocation of macro "__HAL_TIM_SET_COUNTER" 
-              __HAL_TIM_SET_COUNTER(&htim1) = 0x7fff;
-User\encoder.c(23): error:  #29: expected an expression
-              __HAL_TIM_SET_COUNTER(&htim1) = 0x7fff;
-User\encoder.c(23): error:  #137: expression must be a modifiable lvalue
-              __HAL_TIM_SET_COUNTER(&htim1) = 0x7fff;
-User\encoder.c(28): error:  #54-D: too few arguments in invocation of macro "__HAL_TIM_SET_COUNTER" 
-              __HAL_TIM_SET_COUNTER(&htim2) = 0x7fff;
-User\encoder.c(28): error:  #29: expected an expression
-              __HAL_TIM_SET_COUNTER(&htim2) = 0x7fff;
-User\encoder.c(28): error:  #137: expression must be a modifiable lvalue
-              __HAL_TIM_SET_COUNTER(&htim2) = 0x7fff;
-User\encoder.c(33): error:  #54-D: too few arguments in invocation of macro "__HAL_TIM_SET_COUNTER" 
-              __HAL_TIM_SET_COUNTER(&htim3) = 0x7fff;
-User\encoder.c(33): error:  #29: expected an expression
-              __HAL_TIM_SET_COUNTER(&htim3) = 0x7fff;
-User\encoder.c(33): error:  #137: expression must be a modifiable lvalue
-              __HAL_TIM_SET_COUNTER(&htim3) = 0x7fff;
-User\encoder.c(38): error:  #54-D: too few arguments in invocation of macro "__HAL_TIM_SET_COUNTER" 
-              __HAL_TIM_SET_COUNTER(&htim4) = 0x7fff;
-User\encoder.c(38): error:  #29: expected an expression
-              __HAL_TIM_SET_COUNTER(&htim4) = 0x7fff;
-User\encoder.c(38): error:  #137: expression must be a modifiable lvalue
-              __HAL_TIM_SET_COUNTER(&htim4) = 0x7fff;
-User\encoder.c: 2 warnings, 13 errors
-compiling chassis.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-User\chassis.c(35): error:  #20: identifier "ChassisMotor" is undefined
-          Chassis_PID[i].mode = ChassisMotor.pidMode;
-User\chassis.c(84): warning:  #223-D: function "Chassis_ReadEncoder" declared implicitly
-          Motor_fdb->motor[i].motor_fdb.encoder_fdb = Chassis_ReadEncoder(i + 1);
-User\chassis.c(96): warning:  #223-D: function "Motor_PWM_Set" declared implicitly
-      Motor_PWM_Set(&Motor);
-User\chassis.c(97): warning:  #1-D: last line of file ends without a newline
-  }
-User\chassis.c: 5 warnings, 1 error
+User\move.c(221): error:  #20: identifier "condition_met" is undefined
+              if (condition_met)
+User\move.c: 1 warning, 8 errors
 compiling system_stm32f1xx.c...
 compiling Servo.c...
-./User/Servo.h(17): warning:  #1295-D: Deprecated declaration Servo_Init - give arg types
-  void Servo_Init();
-./User/chassis.h(1): warning:  #14-D: extra text after expected end of preprocessing directive
-  #ifndef __CHASSIS_H#define __CHASSIS_H
-User\Servo.c: 2 warnings, 0 errors
-"syq\syq.axf" - 79 Error(s), 38 Warning(s).
+compiling bsp_Chassis.c...
+compiling stm32f1xx_hal_uart.c...
+compiling encoder.c...
+compiling chassis.c...
+User\chassis.c(3): warning:  #64-D: declaration does not declare anything
+  Chassis_Motor_t   Motor;
+User\chassis.c: 1 warning, 0 errors
+"syq\syq.axf" - 38 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 

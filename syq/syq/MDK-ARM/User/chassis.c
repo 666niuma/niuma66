@@ -3,7 +3,7 @@ pid_type_def Chassis_PID[4];
 Chassis_Motor_t   Motor;
 
 
-
+void MotorPID_Init(Chassis_Motor_t *pid_init);
 int myabs(int a)
 { 		   
 	int temp;
@@ -13,21 +13,6 @@ int myabs(int a)
 	  temp=a;
 	return temp;
 }
-
-int i;
-    for(i = 0; i < 4; i++)
-    {
-        Chassis_PID[i].Kp = Motor_Kp[i];
-        Chassis_PID[i].Kd = Motor_Kd[i];
-        Chassis_PID[i].Ki = Motor_Ki[i];
-
-        Chassis_PID[i].max_iout = 250;
-        Chassis_PID[i].max_out = 300;
-
-        Chassis_PID[i].mode = ChassisMotor.pidMode;
-
-        ChassisMotor.motor.motor_set[i].speed_set = 0;
-    }
 
 
 
@@ -41,10 +26,22 @@ float Motor_Kd[5] = {0.1,  0.1,  0.1, 0.1, 0.5};
 
 // 速度解算函数
 
-void Chassis_Init(void)
+void Chassis_Init(Chassis_Motor_t *init)
 {
-    MotorPID_Init(&Motor);
-    Motor_Init(&Motor);
+	init->motor[0].motor_gpio.gpio = Motor1_Port;
+    init->motor[1].motor_gpio.gpio = Motor2_Port;
+    init->motor[2].motor_gpio.gpio = Motor3_Port;
+    init->motor[3].motor_gpio.gpio = Motor4_Port;
+    
+    init->motor[0].motor_gpio.in1  = Motor1_IN1;
+    init->motor[1].motor_gpio.in1  = Motor2_IN1;
+    init->motor[2].motor_gpio.in1  = Motor3_IN1;
+    init->motor[3].motor_gpio.in1  = Motor4_IN1;
+    
+    init->motor[0].motor_gpio.in2  = Motor1_IN1;
+    init->motor[1].motor_gpio.in2  = Motor2_IN1;
+    init->motor[2].motor_gpio.in2  = Motor3_IN1;
+    init->motor[3].motor_gpio.in2  = Motor4_IN1;
 }
 
 void MotorPID_Init(Chassis_Motor_t *pid_init)
@@ -59,7 +56,7 @@ void MotorPID_Init(Chassis_Motor_t *pid_init)
         Chassis_PID[i].max_iout = 250;
         Chassis_PID[i].max_out = 300;
 
-        Chassis_PID[i].mode = ChassisMotor.pidMode;
+        Chassis_PID[i].mode = pid_init->pidMode;
 
         pid_init->motor[i].motor_set.speed_set = 0;
     }
@@ -119,33 +116,15 @@ void Motor_fdb(Chassis_Motor_t *Motor_fdb)
     }
 }
 
-void MotorPID_Init(void)
-{
-    //底盘PID初始化
-    int i;
-    for(i = 0; i < 4; i++)
-    {
-        Chassis_PID[i].Kp = Motor_Kp[i];
-        Chassis_PID[i].Kd = Motor_Kd[i];
-        Chassis_PID[i].Ki = Motor_Ki[i];
 
-        Chassis_PID[i].max_iout = 250;
-        Chassis_PID[i].max_out = 300;
-
-        Chassis_PID[i].mode = ChassisMotor.pidMode;
-
-        ChassisMotor.motor.motor_set[i].speed_set = 0;
-    }
-}
-
-void Chassis_PIDCalc(ChassisMotor_t *pid)
+void Chassis_PIDCalc(Chassis_Motor_t *pid)
  {   
     int i;
     for(i = 0; i<4; i++)
     {
         if(pid->motor[i].motor_set.speed_set != pid->motor[i].motor_fdb.speed_fdb)
         {
-            pid->motor[i].motor_set.pid_speed = PID_Calc(&Chassis_PID[i], pid->motor[i].motor_fdb.speed_fdb, pid->motot[i].motor_set.speed_set);
+            pid->motor[i].motor_set.pid_speed = PID_Calc(&Chassis_PID[i], pid->motor[i].motor_fdb.speed_fdb, pid->motor[i].motor_set.speed_set);
             
             
             if(myabs(pid->motor[i].motor_set.speed_set) < 0.1)
@@ -157,36 +136,36 @@ void Chassis_PIDCalc(ChassisMotor_t *pid)
             if(pid->motor[i].motor_set.pid_speed > 0)
             {
                 temp = pid->motor[i].motor_set.pid_speed / pid->maxRpm_fwd[i];
-                pid->motor_set[i].duty_set = (uint16_t)(temp * 1000);
+                pid->motor[i].motor_set.duty_set = (uint16_t)(temp * 1000);
             }
             else if(pid->motor[i].motor_set.pid_speed < 0)
             {
-                temp = pid->motor[i].motor_set.pid_speed / ChassisMotor.maxRpm_bwd[i];
+                temp = pid->motor[i].motor_set.pid_speed / pid->maxRpm_bwd[i];
                 pid->motor[i].motor_set.duty_set = (uint16_t)(temp * 1000);
             }
             if(pid->motor[i].motor_set.duty_set > 100){pid->motor[i].motor_set.duty_set = 100;}
             
             //Motor Turn
-            if(pid->motor.motor_set[i].pid_speed > 0)
+            if(pid->motor[i].motor_set.pid_speed > 0)
             {
-                GPIO_SetBits(pid->motor_gpio[i].gpio, pid->motor_gpio[i].in1);
-                GPIO_ResetBits(pid->motor_gpio[i].gpio, pid->motor_gpio[i].in2);
+                HAL_GPIO_WritePin(pid->motor[i].motor_gpio.gpio, pid->motor[i].motor_gpio.in1,GPIO_PIN_SET);
+                HAL_GPIO_WritePin(pid->motor[i].motor_gpio.gpio, pid->motor[i].motor_gpio.in2,GPIO_PIN_RESET);
             }
-            else if(pid->motor.motor_set[i].pid_speed < 0)
+            else if(pid->motor[i].motor_set.pid_speed < 0)
             {
-                GPIO_SetBits(pid->motor_gpio[i].gpio, pid->motor_gpio[i].in2);
-                GPIO_ResetBits(pid->motor_gpio[i].gpio, pid->motor_gpio[i].in1);
+                HAL_GPIO_WritePin(pid->motor[i].motor_gpio.gpio, pid->motor[i].motor_gpio.in2,GPIO_PIN_SET);
+                HAL_GPIO_WritePin(pid->motor[i].motor_gpio.gpio, pid->motor[i].motor_gpio.in1,GPIO_PIN_RESET);
             }
-            else if(pid->motor_set[i].pid_speed == 0)
+            else if(pid->motor[i].motor_set.pid_speed == 0)
             {
-                GPIO_SetBits(pid->motor_gpio[i].gpio, pid->motor_gpio[i].in1);
-                GPIO_SetBits(pid->motor_gpio[i].gpio, pid->motor_gpio[i].in2);
+                 HAL_GPIO_WritePin(pid->motor[i].motor_gpio.gpio, pid->motor[i].motor_gpio.in1,GPIO_PIN_SET);
+				 HAL_GPIO_WritePin(pid->motor[i].motor_gpio.gpio, pid->motor[i].motor_gpio.in2,GPIO_PIN_SET);
             }
 
         }
-        else if((pid->motor.motor_set[i].speed_set == 0) && (pid->motor.motor_fdb[i].speed_fdb == 0))
+        else if((pid->motor[i].motor_set.pid_speed == 0) && (pid->motor[i].motor_fdb.speed_fdb == 0))
         {
-            pid->motor.motor_set[i].pid_speed = 0;
+            pid->motor[i].motor_set.pid_speed = 0;
         }
 //        Motor_Control(ChassisMotor.motor.motor_set[0].current_set, ChassisMotor.motor.motor_set[1].current_set, 
 //                    ChassisMotor.motor.motor_set[2].current_set, ChassisMotor.motor.motor_set[3].current_set);
@@ -216,14 +195,3 @@ void Chassis_PIDCalc(ChassisMotor_t *pid)
 //     }
 // }
 
-
-void Task_Chassis(void)
-{
-    // Infinite loop
-    Chassis_Speed_Calc(&Motor);
-    // Chassis_Speed_TO_Duty(&Motor);
-
-    Motor_fdb(&Motor);
-    Chassis_PIDCalc(&Motor);
-    Motor_PWM_Set(&Motor);
-}

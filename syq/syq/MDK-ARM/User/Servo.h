@@ -14,7 +14,7 @@ typedef struct
 
 void Servo_angle_to_duty(Servo_t *Servo_calc);
 
-void Servo_Init();
+void Servo_Init(void);
 
 void Servo_Set(Servo_t *Servo_set);
 
