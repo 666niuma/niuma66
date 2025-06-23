@@ -8,9 +8,9 @@ int16_t Chassis_ReadEncoder(uint8_t TIMX)
     switch (TIMX)
     {
     case 1:
-        ReadData = -__HAL_TIM_GET_COUNTER(&ChassisEC1_TIM); // Ê¹ÓÃHAL¿âº¯Êı¶ÁÈ¡±àÂëÆ÷¼ÆÊı
-        EncoderData = ReadData - 0x7fff - 2.7;
-        __HAL_TIM_SET_COUNTER(&ChassisEC1_TIM, 0x7fff); // Ê¹ÓÃHAL¿âºêÉèÖÃ¼ÆÊıÆ÷Öµ
+        ReadData = -__HAL_TIM_GET_COUNTER(&ChassisEC1_TIM); // ä½¿ç”¨HALåº“å‡½æ•°è¯»å–ç¼–ç å™¨è®¡æ•°
+        EncoderData = ReadData - 0x7fff - 2.5;
+        __HAL_TIM_SET_COUNTER(&ChassisEC1_TIM, 0x7fff); // ä½¿ç”¨HALåº“å®è®¾ç½®è®¡æ•°å™¨å€¼
         break;
     case 2:
         ReadData = __HAL_TIM_GET_COUNTER(&ChassisEC2_TIM);

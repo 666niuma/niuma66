@@ -18,9 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "dma.h"
 #include "tim.h"
-#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -90,7 +88,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_TIM9_Init();
   MX_TIM12_Init();
   MX_TIM1_Init();
@@ -100,7 +97,6 @@ int main(void)
   MX_TIM6_Init();
   MX_TIM13_Init();
   MX_TIM14_Init();
-  MX_UART5_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
   HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
@@ -115,6 +111,10 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim6);
   ChassisMotor_t    ChassisMotor; 
 	FSM_APP current_state;
+  HAL_Delay(1000-1);
+  Code_Init();
+__HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 400);
+__HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, 400);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,9 +122,10 @@ int main(void)
   while (1)
   {
 	  //Chassis_FSM_TEST();
-	  
+	  __HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 400);
+		__HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, 400);
 		//test();
-		//__HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 1400);
+		//__HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 1500);
     Chassis_FSM_E_TO_FSM_APP(&current_state);
     //Chassis_FSM();
 		

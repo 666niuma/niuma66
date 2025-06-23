@@ -513,6 +513,14 @@ ChassisMotor_t* Chassis_ReadData(void)
 参数：void
 返回值: void
 **************************************************************************/
+
+void Code_Init(void)
+{
+
+    servo_ctrl = NONE; //舵机状态
+    Red_Green_ctrl = Read_RED_Light; //红绿灯状态
+}
+
 void Code_Tranf(void)
 {
     MorCode_Read(&code_read);
@@ -537,7 +545,7 @@ void Code_Tranf(void)
         path_ctrl = THE_PATH_TWO;
     }
 
-    if(code_read.code[0] == 0)
+    if(code_read.code[0] == 0 && code_read.code[1] == 1 && code_read.code[2] == 1)
     {
         Red_Green_ctrl = Read_Green_Light;
     }
@@ -546,6 +554,7 @@ void Code_Tranf(void)
         Red_Green_ctrl = Read_RED_Light;
 		}
 }
+
 
 /**************************************************************************
 功能：取绝对值
@@ -584,23 +593,34 @@ void Chassis_FSM_E_TO_FSM_APP(FSM_APP *current_state)
         HAL_Delay(1000-1);
 			 chassis_ctrl = STOP_WAIT;
 		time = 0;
-			while (time <= 200)
+        __HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 400);
+				__HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, 400);
+            servo_ctrl = NONE;
+        
+		while (servo_ctrl == NONE)
 		{
-       Code_Tranf();
-       Chassis_Task();
+            MorCode_Read(&code_read);
+             Code_Tranf();
+            Chassis_Task();
 		}
 			if(servo_ctrl == Servo1_OPEN_S)
 			{
-                __HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 1400);
-                HAL_Delay(1000-1);
+				HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,GPIO_PIN_SET);
+                __HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 2000);
+                HAL_Delay(3000-1);
                 __HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 400);
+								
 			}
 			 else if(servo_ctrl == Servo2_OPEN_S)
 			 {
+				 HAL_GPIO_WritePin(GPIOG,GPIO_PIN_9,GPIO_PIN_SET);
                 __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, 1400);
-                HAL_Delay(1000-1);
+                HAL_Delay(3000-1);
                 __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, 400);
+								
 			 }
+			 HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,GPIO_PIN_RESET);
+			 HAL_GPIO_WritePin(GPIOG,GPIO_PIN_9,GPIO_PIN_RESET);
 			*current_state = start_to_light;
 			break;
 			case start_to_light:
@@ -616,16 +636,22 @@ void Chassis_FSM_E_TO_FSM_APP(FSM_APP *current_state)
 			chassis_ctrl = STOP_WAIT;
             while(time <= 100){Chassis_Task();}
             time = 0;
-        while (code_read.code[0] != 0)
+						Red_Green_ctrl = NONE_LIGHT;
+						code_read.code[0] = 0;
+        while (Red_Green_ctrl != Read_Green_Light )
 		{
+        MorCode_Read(&code_read);
        Code_Tranf();
        Chassis_Task();
-        }
+    }
 			*current_state = light_to_final;
 			break;
 		case light_to_final:
+			__HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 400);
+			__HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, 400);
             if(path_ctrl == THE_PATH_ONE)
             {
+							
 							chassis_ctrl = Forward_PATH;
 							time = 0;
 							while(time  <= 140){ Chassis_Task();}
@@ -633,7 +659,7 @@ void Chassis_FSM_E_TO_FSM_APP(FSM_APP *current_state)
 										chassis_ctrl = STOP_WAIT;
 							while(time  <= 50){ Chassis_Task();}
 							chassis_ctrl = Left_PATH;
-							while(time <= 270){ Chassis_Task();}
+							while(time <= 290){ Chassis_Task();}
 										time = 0;
             }
 		
@@ -647,7 +673,7 @@ void Chassis_FSM_E_TO_FSM_APP(FSM_APP *current_state)
 										while(time  <= 50){ Chassis_Task();}
 										time = 0;
 										chassis_ctrl = Right_PATH;
-										while(time  <= 280){ Chassis_Task();}
+										while(time  <= 290){ Chassis_Task();}
 										time = 0;
 							}
 							
@@ -658,20 +684,31 @@ void Chassis_FSM_E_TO_FSM_APP(FSM_APP *current_state)
 		case final:
 			HAL_Delay(500-1);
 		 time = 0;
-		
-            if(servo_ctrl == Servo1_OPEN_S)
+		 servo_ctrl = NONE;
+        MorCode_Read(&code_read);
+		while (servo_ctrl == NONE)
+		{
+            MorCode_Read(&code_read);
+            Code_Tranf();
+            Chassis_Task();
+		}
+			if(servo_ctrl == Servo1_OPEN_S)
 			{
-                __HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 1400);
-                HAL_Delay(1000-1);
+                __HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 2000);
+                HAL_Delay(3000-1);
                 __HAL_TIM_SetCompare(&htim13, TIM_CHANNEL_1, 400);
+				HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,GPIO_PIN_SET);
 			}
 			 else if(servo_ctrl == Servo2_OPEN_S)
 			 {
                 __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, 1400);
-                HAL_Delay(1000-1);
+                HAL_Delay(3000-1);
                 __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, 400);
-       }
-             time = 0;
+				 HAL_GPIO_WritePin(GPIOG,GPIO_PIN_9,GPIO_PIN_SET);
+			 }
+			 HAL_GPIO_WritePin(GPIOG,GPIO_PIN_14,GPIO_PIN_RESET);
+			 HAL_GPIO_WritePin(GPIOG,GPIO_PIN_9,GPIO_PIN_RESET);
+			 time = 0;
 			
 			*current_state = final_to_start;
 			break;
@@ -681,7 +718,6 @@ void Chassis_FSM_E_TO_FSM_APP(FSM_APP *current_state)
             chassis_ctrl = Left_PATH;
             while(time  <= 330){ Chassis_Task();}
             time = 0;
-             time = 0;
             chassis_ctrl = Backward_PATH;
             while(time  <= 540){ Chassis_Task();}
             time = 0;
@@ -1067,17 +1103,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 #define SEND_BUF_SIZE 100
 uint8_t Sendbuf[SEND_BUF_SIZE];
 
-void printf_DMA(char *fmt, ...)
-{
-    memset(Sendbuf, 0, SEND_BUF_SIZE);// 清空发送缓冲区
-     
-		va_list arg;
-		va_start(arg, fmt);
-		vsnprintf((char*)Sendbuf, SEND_BUF_SIZE, fmt, arg);// 安全的格式化输出，防止缓冲区溢出
-		va_end(arg); 
-		uint8_t len = strlen((char*)Sendbuf);// 计算实际字符串长度
-		if(len > 0)
-		{
-		HAL_UART_Transmit_DMA(&huart5,Sendbuf, len);// 通过DMA发送字符串
-		}
-}
+//void printf_DMA(char *fmt, ...)
+//{
+//    memset(Sendbuf, 0, SEND_BUF_SIZE);// 清空发送缓冲区
+//     
+//		va_list arg;
+//		va_start(arg, fmt);
+//		vsnprintf((char*)Sendbuf, SEND_BUF_SIZE, fmt, arg);// 安全的格式化输出，防止缓冲区溢出
+//		va_end(arg); 
+//		uint8_t len = strlen((char*)Sendbuf);// 计算实际字符串长度
+//		if(len > 0)
+//		{
+//		HAL_UART_Transmit_DMA(&huart5,Sendbuf, len);// 通过DMA发送字符串
+//		}
+//}

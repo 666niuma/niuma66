@@ -6,7 +6,7 @@
 
 
 #define SERVO_MIN  400    
-#define SERVO_MAX  1700   
+#define SERVO_MAX  2000   
 
 typedef struct 
 {

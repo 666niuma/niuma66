@@ -42,7 +42,7 @@ extern "C" {
 #include "bsp_Chassis.h"
 #include <stdarg.h>
 #include <string.h>
-#include "usart.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

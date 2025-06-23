@@ -105,6 +105,7 @@ typedef enum SERVO_E
 {
     Servo1_OPEN_S,        //舵机状态
     Servo2_OPEN_S,
+    NONE,
 }SERVO_E;
 
 typedef enum PATH_E
@@ -121,6 +122,7 @@ typedef enum PI_E
     
     Read_RED_Light,     //红绿灯
     Read_Green_Light,
+		NONE_LIGHT,
 }PI_E;
 
 
@@ -197,5 +199,5 @@ void test(void);
 void printf_DMA(char *fmt, ...);
 void Chassis_FSM_TEST(void);
 void Chassis_FSM_E_TO_FSM_APP(FSM_APP *current_state);
-
+void Code_Init(void);
 #endif // __CHASSIS_H

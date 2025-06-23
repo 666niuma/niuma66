@@ -1,9 +1,10 @@
+[#ftl]
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    stm32f4xx_hal_conf_template.h
   * @author  MCD Application Team
-  * @brief   HAL configuration template file.
+  * @brief   HAL configuration template file. 
   *          This file should be copied to the application folder and renamed
   *          to stm32f4xx_hal_conf.h.
   ******************************************************************************
@@ -17,7 +18,7 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  */
+  */ 
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -28,59 +29,49 @@
  extern "C" {
 #endif
 
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
 /* ########################## Module Selection ############################## */
 /**
-  * @brief This is the list of modules to be used in the HAL driver
+  * @brief This is the list of modules to be used in the HAL driver 
   */
-#define HAL_MODULE_ENABLED
+#define HAL_MODULE_ENABLED  
 
-  /* #define HAL_CRYP_MODULE_ENABLED */
-/* #define HAL_ADC_MODULE_ENABLED */
-/* #define HAL_CAN_MODULE_ENABLED */
-/* #define HAL_CRC_MODULE_ENABLED */
-/* #define HAL_CAN_LEGACY_MODULE_ENABLED */
-/* #define HAL_DAC_MODULE_ENABLED */
-/* #define HAL_DCMI_MODULE_ENABLED */
-/* #define HAL_DMA2D_MODULE_ENABLED */
-/* #define HAL_ETH_MODULE_ENABLED */
-/* #define HAL_ETH_LEGACY_MODULE_ENABLED */
-/* #define HAL_NAND_MODULE_ENABLED */
-/* #define HAL_NOR_MODULE_ENABLED */
-/* #define HAL_PCCARD_MODULE_ENABLED */
-/* #define HAL_SRAM_MODULE_ENABLED */
-/* #define HAL_SDRAM_MODULE_ENABLED */
-/* #define HAL_HASH_MODULE_ENABLED */
-/* #define HAL_I2C_MODULE_ENABLED */
-/* #define HAL_I2S_MODULE_ENABLED */
-/* #define HAL_IWDG_MODULE_ENABLED */
-/* #define HAL_LTDC_MODULE_ENABLED */
-/* #define HAL_RNG_MODULE_ENABLED */
-/* #define HAL_RTC_MODULE_ENABLED */
-/* #define HAL_SAI_MODULE_ENABLED */
-/* #define HAL_SD_MODULE_ENABLED */
-/* #define HAL_MMC_MODULE_ENABLED */
-/* #define HAL_SPI_MODULE_ENABLED */
-#define HAL_TIM_MODULE_ENABLED
-/* #define HAL_UART_MODULE_ENABLED */
-/* #define HAL_USART_MODULE_ENABLED */
-/* #define HAL_IRDA_MODULE_ENABLED */
-/* #define HAL_SMARTCARD_MODULE_ENABLED */
-/* #define HAL_SMBUS_MODULE_ENABLED */
-/* #define HAL_WWDG_MODULE_ENABLED */
-/* #define HAL_PCD_MODULE_ENABLED */
-/* #define HAL_HCD_MODULE_ENABLED */
-/* #define HAL_DSI_MODULE_ENABLED */
-/* #define HAL_QSPI_MODULE_ENABLED */
-/* #define HAL_QSPI_MODULE_ENABLED */
-/* #define HAL_CEC_MODULE_ENABLED */
-/* #define HAL_FMPI2C_MODULE_ENABLED */
-/* #define HAL_FMPSMBUS_MODULE_ENABLED */
-/* #define HAL_SPDIFRX_MODULE_ENABLED */
-/* #define HAL_DFSDM_MODULE_ENABLED */
-/* #define HAL_LPTIM_MODULE_ENABLED */
+  [#assign allModules = ["AES", "CRYP","ADC","CAN","CRC", "CAN_LEGACY","DAC","DCMI","DMA2D","ETH","ETH_LEGACY","NAND","NOR","PCCARD","SRAM","SDRAM","HASH","I2C","I2S","IWDG","LTDC","RNG","RTC","SAI","SD","MMC","SPI","TIM","UART","USART","IRDA","SMARTCARD","SMBUS","WWDG","PCD","HCD", "DSI","QSPI","QUADSPI","CEC","FMPI2C","FMPSMBUS","SPDIFRX", "DFSDM","LPTIM"]]
+[#assign isUsed=false]
+[#list allModules as module]
+[#if isModuleUsed(module)]
+[#if (module = "AES" || module = "CRYP") && !isUsed]
+[#assign isUsed=true]
+[#compress]#define HAL_${module?replace("QUADSPI","QSPI")?replace("AES","CRYP")}_MODULE_ENABLED[/#compress]
+[#else]
+[#compress]#define HAL_${module?replace("QUADSPI","QSPI")?replace("AES","CRYP")}_MODULE_ENABLED[/#compress]
+[#assign isUsed=false]
+[/#if]
+[#else]
+[#if isUsed && (module = "CRYP")]
+[#assign isUsed=false]
+[#continue]
+[#else]
+[#if module != "AES"]
+[#compress]/* #define HAL_${module?replace("QUADSPI","QSPI")}_MODULE_ENABLED */[/#compress]
+[#assign isUsed=true]
+[/#if]
+[/#if]
+[/#if]
+[/#list]
+  [#function isModuleUsed moduleName]
+	[#assign used=false]
+	[#list modules as usedModule]
+		[#if usedModule==moduleName]
+			[#assign used=true]
+			[#return true]
+		[/#if]
+	[/#list]
+	[#return used]
+  [/#function]
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_EXTI_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
@@ -93,20 +84,20 @@
 /**
   * @brief Adjust the value of External High Speed oscillator (HSE) used in your application.
   *        This value is used by the RCC HAL module to compute the system frequency
-  *        (when HSE is used as system clock source, directly or through the PLL).
+  *        (when HSE is used as system clock source, directly or through the PLL).  
   */
-#if !defined  (HSE_VALUE)
-  #define HSE_VALUE    25000000U /*!< Value of the External oscillator in Hz */
+#if !defined  (HSE_VALUE) 
+  #define HSE_VALUE    [#if hse_value??]${hse_value}[#else]25000000[/#if]U /*!< Value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
 
 #if !defined  (HSE_STARTUP_TIMEOUT)
-  #define HSE_STARTUP_TIMEOUT    100U   /*!< Time out for HSE start up, in ms */
+  #define HSE_STARTUP_TIMEOUT    [#if HSE_Timout??]${HSE_Timout}[#if HSE_Timout?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]5000U[/#if]   /*!< Time out for HSE start up, in ms */
 #endif /* HSE_STARTUP_TIMEOUT */
 
 /**
   * @brief Internal High Speed oscillator (HSI) value.
   *        This value is used by the RCC HAL module to compute the system frequency
-  *        (when HSI is used as system clock source, directly or through the PLL).
+  *        (when HSI is used as system clock source, directly or through the PLL). 
   */
 #if !defined  (HSI_VALUE)
   #define HSI_VALUE    ((uint32_t)16000000U) /*!< Value of the Internal oscillator in Hz*/
@@ -115,8 +106,8 @@
 /**
   * @brief Internal Low Speed oscillator (LSI) value.
   */
-#if !defined  (LSI_VALUE)
- #define LSI_VALUE  32000U       /*!< LSI Typical Value in Hz*/
+#if !defined  (LSI_VALUE) 
+ #define LSI_VALUE  [#if lsi_value??]${lsi_value}[#else]32000[/#if]U       /*!< LSI Typical Value in Hz*/
 #endif /* LSI_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
                                              The real value may vary depending on the variations
                                              in voltage and temperature.*/
@@ -124,20 +115,20 @@
   * @brief External Low Speed oscillator (LSE) value.
   */
 #if !defined  (LSE_VALUE)
- #define LSE_VALUE  32768U    /*!< Value of the External Low Speed oscillator in Hz */
+ #define LSE_VALUE  [#if lse_value??]${lse_value}[#else]32768[/#if]U    /*!< Value of the External Low Speed oscillator in Hz */
 #endif /* LSE_VALUE */
 
 #if !defined  (LSE_STARTUP_TIMEOUT)
-  #define LSE_STARTUP_TIMEOUT    5000U   /*!< Time out for LSE start up, in ms */
+  #define LSE_STARTUP_TIMEOUT    [#if LSE_Timout??]${LSE_Timout}[#if LSE_Timout?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]5000U[/#if]   /*!< Time out for LSE start up, in ms */
 #endif /* LSE_STARTUP_TIMEOUT */
 
 /**
   * @brief External clock source for I2S peripheral
-  *        This value is used by the I2S HAL module to compute the I2S clock source
-  *        frequency, this source is inserted directly through I2S_CKIN pad.
+  *        This value is used by the I2S HAL module to compute the I2S clock source 
+  *        frequency, this source is inserted directly through I2S_CKIN pad. 
   */
 #if !defined  (EXTERNAL_CLOCK_VALUE)
-  #define EXTERNAL_CLOCK_VALUE    12288000U /*!< Value of the External audio frequency in Hz*/
+  #define EXTERNAL_CLOCK_VALUE    [#if external_clock_value??]${external_clock_value}[#else]12288000[/#if]U /*!< Value of the External audio frequency in Hz*/
 #endif /* EXTERNAL_CLOCK_VALUE */
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
@@ -147,12 +138,13 @@
 /**
   * @brief This is the HAL system configuration section
   */
-#define  VDD_VALUE		      3300U /*!< Value of VDD in mv */
-#define  TICK_INT_PRIORITY            15U   /*!< tick interrupt priority */
-#define  USE_RTOS                     0U
-#define  PREFETCH_ENABLE              1U
-#define  INSTRUCTION_CACHE_ENABLE     1U
-#define  DATA_CACHE_ENABLE            1U
+[#if advancedSettings??][#assign advancedSettings = advancedSettings[0]][/#if]     
+#define  VDD_VALUE		      [#if vdd_value??]${vdd_value}[#if vdd_value?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]3300U[/#if] /*!< Value of VDD in mv */
+#define  TICK_INT_PRIORITY            [#if TICK_INT_PRIORITY??]${TICK_INT_PRIORITY}[#if TICK_INT_PRIORITY?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0FU[/#if]   /*!< tick interrupt priority */            
+#define  USE_RTOS                     [#if advancedSettings?? && advancedSettings.USE_RTOS??]${advancedSettings.USE_RTOS}[#else]0[/#if]U     
+#define  PREFETCH_ENABLE              [#if PREFETCH_ENABLE??]${PREFETCH_ENABLE}[#else]1[/#if]U
+#define  INSTRUCTION_CACHE_ENABLE     [#if INSTRUCTION_CACHE_ENABLE??]${INSTRUCTION_CACHE_ENABLE}[#else]1[/#if]U
+#define  DATA_CACHE_ENABLE            [#if DATA_CACHE_ENABLE??]${DATA_CACHE_ENABLE}[#else]1[/#if]U
 
 #define  USE_HAL_ADC_REGISTER_CALLBACKS         0U /* ADC register callback disabled       */
 #define  USE_HAL_CAN_REGISTER_CALLBACKS         0U /* CAN register callback disabled       */
@@ -196,10 +188,10 @@
 
 /* ########################## Assert Selection ############################## */
 /**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the
+  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
   *        HAL drivers code
   */
-/* #define USE_FULL_ASSERT    1U */
+[#if !fullAssert??]/*[/#if] #define USE_FULL_ASSERT    1U [#if !fullAssert??]*/[/#if]
 
 /* ################## Ethernet peripheral configuration ##################### */
 
@@ -213,49 +205,67 @@
 #define MAC_ADDR4   0U
 #define MAC_ADDR5   0U
 
-/* Definition of the Ethernet driver buffers size and count */
-#define ETH_RX_BUF_SIZE                ETH_MAX_PACKET_SIZE /* buffer size for receive               */
+/* Definition of the Ethernet driver buffers size and count */   
+#define ETH_RX_BUF_SIZE                [#if RxBuffLen??]${RxBuffLen}[#else]ETH_MAX_PACKET_SIZE[/#if] /* buffer size for receive               */
 #define ETH_TX_BUF_SIZE                ETH_MAX_PACKET_SIZE /* buffer size for transmit              */
-#define ETH_RXBUFNB                    4U       /* 4 Rx buffers of size ETH_RX_BUF_SIZE  */
-#define ETH_TXBUFNB                    4U       /* 4 Tx buffers of size ETH_TX_BUF_SIZE  */
+#define ETH_RXBUFNB                    [#if ETH_RXBUFNB??]${ETH_RXBUFNB}[#if ETH_RXBUFNB?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]4U[/#if]       /* 4 Rx buffers of size ETH_RX_BUF_SIZE  */
+#define ETH_TXBUFNB                    [#if ETH_TXBUFNB??]${ETH_TXBUFNB}[#if ETH_TXBUFNB?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]4U[/#if]       /* 4 Tx buffers of size ETH_TX_BUF_SIZE  */
 
 /* Section 2: PHY configuration section */
 
-/* DP83848_PHY_ADDRESS Address*/
-#define DP83848_PHY_ADDRESS
-/* PHY Reset delay these values are based on a 1 ms Systick interrupt*/
-#define PHY_RESET_DELAY                 0x000000FFU
+/* [#if BspComponentName??][#if BspComponentName=="DP83848"]${BspComponentName}[#else][#if BspComponentName=="LAN8742"]${BspComponentName}A[/#if][/#if] PHY[#else]DP83848_PHY_ADDRESS[/#if] Address*/ 
+#define [#if BspComponentName??][#if BspComponentName=="DP83848"]${BspComponentName}[#else][#if BspComponentName=="LAN8742"]${BspComponentName}A[/#if][/#if]_PHY_ADDRESS[#else]DP83848_PHY_ADDRESS[/#if]           [#if BspComponentName??][#if BspComponentName=="DP83848"]0x01U[#else][#if BspComponentName=="LAN8742"]0x00U[/#if][/#if][/#if]
+/* PHY Reset delay these values are based on a 1 ms Systick interrupt*/ 
+#define PHY_RESET_DELAY                 [#if PHY_RESET_DELAY??]${PHY_RESET_DELAY}[#else]0x000000FF[/#if]U
 /* PHY Configuration delay */
-#define PHY_CONFIG_DELAY                0x00000FFFU
+#define PHY_CONFIG_DELAY                [#if PHY_CONFIG_DELAY??]${PHY_CONFIG_DELAY}[#else]0x00000FFF[/#if]U
 
-#define PHY_READ_TO                     0x0000FFFFU
-#define PHY_WRITE_TO                    0x0000FFFFU
+#define PHY_READ_TO                     [#if PHY_READ_TO??]${PHY_READ_TO}[#if PHY_READ_TO?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0000FFFFU[/#if]
+#define PHY_WRITE_TO                    [#if PHY_WRITE_TO??]${PHY_WRITE_TO}[#if PHY_WRITE_TO?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0000FFFFU[/#if]
 
 /* Section 3: Common PHY Registers */
 
-#define PHY_BCR                         ((uint16_t)0x0000U)    /*!< Transceiver Basic Control Register   */
-#define PHY_BSR                         ((uint16_t)0x0001U)    /*!< Transceiver Basic Status Register    */
+#define PHY_BCR                         ((uint16_t)[#if PHY_BCR??]${PHY_BCR}[#if PHY_BCR?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0000U[/#if])    /*!< Transceiver Basic Control Register   */
+#define PHY_BSR                         ((uint16_t)[#if PHY_BSR??]${PHY_BSR}[#if PHY_BSR?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0001U[/#if])    /*!< Transceiver Basic Status Register    */
+ 
+#define PHY_RESET                       ((uint16_t)[#if PHY_RESET??]${PHY_RESET}[#if PHY_RESET?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x8000U[/#if])  /*!< PHY Reset */
+#define PHY_LOOPBACK                    ((uint16_t)[#if PHY_LOOPBACK??]${PHY_LOOPBACK}[#if PHY_LOOPBACK?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x4000U[/#if])  /*!< Select loop-back mode */
+#define PHY_FULLDUPLEX_100M             ((uint16_t)[#if PHY_FULLDUPLEX_100M??]${PHY_FULLDUPLEX_100M}[#if PHY_FULLDUPLEX_100M?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x2100U[/#if])  /*!< Set the full-duplex mode at 100 Mb/s */
+#define PHY_HALFDUPLEX_100M             ((uint16_t)[#if PHY_HALFDUPLEX_100M??]${PHY_HALFDUPLEX_100M}[#if PHY_HALFDUPLEX_100M?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x2000U[/#if])  /*!< Set the half-duplex mode at 100 Mb/s */
+#define PHY_FULLDUPLEX_10M              ((uint16_t)[#if PHY_FULLDUPLEX_10M??]${PHY_FULLDUPLEX_10M}[#if PHY_FULLDUPLEX_10M?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0100U[/#if])  /*!< Set the full-duplex mode at 10 Mb/s  */
+#define PHY_HALFDUPLEX_10M              ((uint16_t)[#if PHY_HALFDUPLEX_10M??]${PHY_HALFDUPLEX_10M}[#if PHY_HALFDUPLEX_10M?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0000U[/#if])  /*!< Set the half-duplex mode at 10 Mb/s  */
+#define PHY_AUTONEGOTIATION             ((uint16_t)[#if PHY_AUTONEGOTIATION??]${PHY_AUTONEGOTIATION}[#if PHY_AUTONEGOTIATION?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x1000U[/#if])  /*!< Enable auto-negotiation function     */
+#define PHY_RESTART_AUTONEGOTIATION     ((uint16_t)[#if PHY_RESTART_AUTONEGOTIATION??]${PHY_RESTART_AUTONEGOTIATION}[#if PHY_RESTART_AUTONEGOTIATION?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0200U[/#if])  /*!< Restart auto-negotiation function    */
+#define PHY_POWERDOWN                   ((uint16_t)[#if PHY_POWERDOWN??]${PHY_POWERDOWN}[#if PHY_POWERDOWN?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0800U[/#if])  /*!< Select the power down mode           */
+#define PHY_ISOLATE                     ((uint16_t)[#if PHY_ISOLATE??]${PHY_ISOLATE}[#if PHY_ISOLATE?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0400U[/#if])  /*!< Isolate PHY from MII                 */
 
-#define PHY_RESET                       ((uint16_t)0x8000U)  /*!< PHY Reset */
-#define PHY_LOOPBACK                    ((uint16_t)0x4000U)  /*!< Select loop-back mode */
-#define PHY_FULLDUPLEX_100M             ((uint16_t)0x2100U)  /*!< Set the full-duplex mode at 100 Mb/s */
-#define PHY_HALFDUPLEX_100M             ((uint16_t)0x2000U)  /*!< Set the half-duplex mode at 100 Mb/s */
-#define PHY_FULLDUPLEX_10M              ((uint16_t)0x0100U)  /*!< Set the full-duplex mode at 10 Mb/s  */
-#define PHY_HALFDUPLEX_10M              ((uint16_t)0x0000U)  /*!< Set the half-duplex mode at 10 Mb/s  */
-#define PHY_AUTONEGOTIATION             ((uint16_t)0x1000U)  /*!< Enable auto-negotiation function     */
-#define PHY_RESTART_AUTONEGOTIATION     ((uint16_t)0x0200U)  /*!< Restart auto-negotiation function    */
-#define PHY_POWERDOWN                   ((uint16_t)0x0800U)  /*!< Select the power down mode           */
-#define PHY_ISOLATE                     ((uint16_t)0x0400U)  /*!< Isolate PHY from MII                 */
-
-#define PHY_AUTONEGO_COMPLETE           ((uint16_t)0x0020U)  /*!< Auto-Negotiation process completed   */
-#define PHY_LINKED_STATUS               ((uint16_t)0x0004U)  /*!< Valid link established               */
-#define PHY_JABBER_DETECTION            ((uint16_t)0x0002U)  /*!< Jabber condition detected            */
-
+#define PHY_AUTONEGO_COMPLETE           ((uint16_t)[#if PHY_AUTONEGO_COMPLETE??]${PHY_AUTONEGO_COMPLETE}[#if PHY_AUTONEGO_COMPLETE?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0020U[/#if])  /*!< Auto-Negotiation process completed   */
+#define PHY_LINKED_STATUS               ((uint16_t)[#if PHY_LINKED_STATUS??]${PHY_LINKED_STATUS}[#if PHY_LINKED_STATUS?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0004U[/#if])  /*!< Valid link established               */
+#define PHY_JABBER_DETECTION            ((uint16_t)[#if PHY_JABBER_DETECTION??]${PHY_JABBER_DETECTION}[#if PHY_JABBER_DETECTION?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0002U[/#if])  /*!< Jabber condition detected            */
+  
 /* Section 4: Extended PHY Registers */
-#define PHY_SR                          ((uint16_t))    /*!< PHY status register Offset                      */
-
-#define PHY_SPEED_STATUS                ((uint16_t))  /*!< PHY Speed mask                                  */
-#define PHY_DUPLEX_STATUS               ((uint16_t))  /*!< PHY Duplex mask                                 */
+[#--Common define--]
+#define PHY_SR                          ((uint16_t)[#if BspComponentName??][#if BspComponentName=="DP83848"]0x10U[#else][#if BspComponentName=="LAN8742"]0x001FU[/#if][/#if][/#if])    /*!< PHY status register Offset                      */
+[#if BspComponentName?? && BspComponentName=="DP83848"]
+#define PHY_MICR                        ((uint16_t)[#if PHY_MICR??]${PHY_MICR}[#if PHY_MICR?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x11U[/#if])    /*!< MII Interrupt Control Register                  */
+#define PHY_MISR                        ((uint16_t)[#if PHY_MISR??]${PHY_MISR}[#if PHY_MISR?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x12U[/#if])    /*!< MII Interrupt Status and Misc. Control Register */
+#n#define PHY_LINK_STATUS                 ((uint16_t)[#if PHY_LINK_STATUS??]${PHY_LINK_STATUS}[#if PHY_LINK_STATUS?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0001U[/#if])  /*!< PHY Link mask                                   */
+[#else]
+#n
+[/#if]
+[#--Common define--]
+#define PHY_SPEED_STATUS                ((uint16_t)[#if BspComponentName??][#if BspComponentName=="DP83848"]0x0002U[#else][#if BspComponentName=="LAN8742"]0x0004U[/#if][/#if][/#if])  /*!< PHY Speed mask                                  */
+#define PHY_DUPLEX_STATUS               ((uint16_t)[#if BspComponentName??][#if BspComponentName=="DP83848"]0x0004U[#else][#if BspComponentName=="LAN8742"]0x0010U[/#if][/#if][/#if])  /*!< PHY Duplex mask                                 */
+[#if BspComponentName?? && BspComponentName=="DP83848"]
+#n#define PHY_MICR_INT_EN                 ((uint16_t)[#if PHY_MICR_INT_EN??]${PHY_MICR_INT_EN}[#if PHY_MICR_INT_EN?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0002U[/#if])  /*!< PHY Enable interrupts                           */
+#define PHY_MICR_INT_OE                 ((uint16_t)[#if PHY_MICR_INT_OE??]${PHY_MICR_INT_OE}[#if PHY_MICR_INT_OE?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0001U[/#if])  /*!< PHY Enable output interrupt events              */
+#n#define PHY_MISR_LINK_INT_EN            ((uint16_t)[#if PHY_MISR_LINK_INT_EN??]${PHY_MISR_LINK_INT_EN}[#if PHY_MISR_LINK_INT_EN?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0020U[/#if])  /*!< Enable Interrupt on change of link status       */
+#define PHY_LINK_INTERRUPT              ((uint16_t)[#if PHY_LINK_INTERRUPT??]${PHY_LINK_INTERRUPT}[#if PHY_LINK_INTERRUPT?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x2000U[/#if])  /*!< PHY link status interrupt mask                  */
+[/#if]
+[#if BspComponentName?? && BspComponentName=="LAN8742"]
+#n#define PHY_ISFR                        ((uint16_t)[#if PHY_ISFR??]${PHY_ISFR}[#if PHY_ISFR?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x1DU[/#if])    /*!< PHY Interrupt Source Flag register Offset   */
+#define PHY_ISFR_INT4                   ((uint16_t)[#if PHY_ISFR_INT4??]${PHY_ISFR_INT4}[#if PHY_ISFR_INT4?matches("(0x[0-9]*[a-f]*[A-F]*)|([0-9]*)")]U[/#if][#else]0x0010U[/#if])  /*!< PHY Link down inturrupt       */  
+[/#if]
 
 /* ################## SPI peripheral configuration ########################## */
 
@@ -264,11 +274,11 @@
 * Deactivated: CRC code cleaned from driver
 */
 
-#define USE_SPI_CRC                     0U
+#define USE_SPI_CRC                     [#if CRC_SPI??]${CRC_SPI}[#else]1U[/#if]
 
 /* Includes ------------------------------------------------------------------*/
 /**
-  * @brief Include module's header file
+  * @brief Include module's header file 
   */
 
 #ifdef HAL_RCC_MODULE_ENABLED
@@ -286,7 +296,7 @@
 #ifdef HAL_DMA_MODULE_ENABLED
   #include "stm32f4xx_hal_dma.h"
 #endif /* HAL_DMA_MODULE_ENABLED */
-
+   
 #ifdef HAL_CORTEX_MODULE_ENABLED
   #include "stm32f4xx_hal_cortex.h"
 #endif /* HAL_CORTEX_MODULE_ENABLED */
@@ -308,7 +318,7 @@
 #endif /* HAL_CRC_MODULE_ENABLED */
 
 #ifdef HAL_CRYP_MODULE_ENABLED
-  #include "stm32f4xx_hal_cryp.h"
+  #include "stm32f4xx_hal_cryp.h" 
 #endif /* HAL_CRYP_MODULE_ENABLED */
 
 #ifdef HAL_DMA2D_MODULE_ENABLED
@@ -334,7 +344,7 @@
 #ifdef HAL_FLASH_MODULE_ENABLED
   #include "stm32f4xx_hal_flash.h"
 #endif /* HAL_FLASH_MODULE_ENABLED */
-
+ 
 #ifdef HAL_SRAM_MODULE_ENABLED
   #include "stm32f4xx_hal_sram.h"
 #endif /* HAL_SRAM_MODULE_ENABLED */
@@ -349,8 +359,8 @@
 
 #ifdef HAL_PCCARD_MODULE_ENABLED
   #include "stm32f4xx_hal_pccard.h"
-#endif /* HAL_PCCARD_MODULE_ENABLED */
-
+#endif /* HAL_PCCARD_MODULE_ENABLED */ 
+  
 #ifdef HAL_SDRAM_MODULE_ENABLED
   #include "stm32f4xx_hal_sdram.h"
 #endif /* HAL_SDRAM_MODULE_ENABLED */
@@ -434,7 +444,7 @@
 #ifdef HAL_HCD_MODULE_ENABLED
  #include "stm32f4xx_hal_hcd.h"
 #endif /* HAL_HCD_MODULE_ENABLED */
-
+   
 #ifdef HAL_DSI_MODULE_ENABLED
  #include "stm32f4xx_hal_dsi.h"
 #endif /* HAL_DSI_MODULE_ENABLED */
@@ -477,7 +487,7 @@
   * @brief  The assert_param macro is used for function's parameters check.
   * @param  expr If expr is false, it calls assert_failed function
   *         which reports the name of the source file and the source
-  *         line number of the call that failed.
+  *         line number of the call that failed. 
   *         If expr is true, it returns no value.
   * @retval None
   */
@@ -493,3 +503,4 @@
 #endif
 
 #endif /* __STM32F4xx_HAL_CONF_H */
+ 
