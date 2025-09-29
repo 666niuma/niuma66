@@ -1,6 +1,0 @@
-E:/project/STM32Project/screen/build/Debug/CMakeFiles/screen.dir
-E:/project/STM32Project/screen/build/Debug/CMakeFiles/edit_cache.dir
-E:/project/STM32Project/screen/build/Debug/CMakeFiles/rebuild_cache.dir
-E:/project/STM32Project/screen/build/Debug/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
-E:/project/STM32Project/screen/build/Debug/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
-E:/project/STM32Project/screen/build/Debug/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir
