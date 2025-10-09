@@ -11,6 +11,7 @@ void protocol::initQueue()
 {
     sendQueue_ = osMessageQueueNew(MAX_QUEUE_SIZE, sizeof(Frame), NULL);
     MsgPool = osMessageQueueNew(MAX_QUEUE_SIZE, sizeof(Frame), NULL);
+    
 }
 
 void protocol::addSubscriber(Subscriber *subscriber)
@@ -35,14 +36,14 @@ void protocol::handleReceiveData(void)
     {
         for (int i = 0; i < subscriberCount_; i++)
         {
-            subscribers[i]->DataReceivedCallback(frame_to_process.ID,frame_to_process.data);// notify all subscribers
+            subscribers[i]->DataReceivedCallback(frame_to_process.ID,frame_to_process.length,frame_to_process.data);// notify all subscribers
         }
     }
     if (osMessageQueueGet(MsgPool, &frame_to_broadcast, NULL, 0)  == osOK)
     {
         for (int i = 0; i < subscriberCount_; i++)
         {
-            subscribers[i]->DataReceivedCallback(frame_to_broadcast.ID,frame_to_broadcast.data);// notify all subscribers
+            subscribers[i]->DataReceivedCallback(frame_to_broadcast.ID,frame_to_broadcast.length,frame_to_broadcast.data);// notify all subscribers
         }
     }
 }

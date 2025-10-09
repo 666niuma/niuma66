@@ -30,13 +30,13 @@ extern "C"
 #define MAX_SUBSCRIBERS 4
 
 
-
 class protocol;
+
 
 class Subscriber
 {
 public:
-    virtual void DataReceivedCallback(uint8_t ID,const uint8_t *byte) {}; // 数据回调函数
+    virtual void DataReceivedCallback(uint8_t ID,uint8_t length,const uint8_t *byte) {}; // 数据回调函数
     // 用户调用此函数发送字节数据
     bool sendData(uint8_t ID,uint8_t length,const uint8_t *data);
     bool transferData(uint8_t ID,uint8_t length,const uint8_t *data);
@@ -62,6 +62,7 @@ class protocol : public SerialDevice
     private:
     osMessageQueueId_t sendQueue_;
     osMessageQueueId_t MsgPool;
+    
     Subscriber *subscribers[MAX_SUBSCRIBERS]; // 订阅者数组
     uint8_t subscriberCount_ = 0;             // 订阅者数量
 };
