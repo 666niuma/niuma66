@@ -21,7 +21,6 @@ class WireLess :public Subscriber
     void processData_Joystick(); // process the data for joystick
     void WireLess_init();
     void Task_WireLess();
-    void processDataReceive(uint8_t *byte); // process the data received
     Frame frame_to_transfer;
     Frame frame_to_send;
     Frame frame_to_process;

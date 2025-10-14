@@ -25,7 +25,7 @@ extern "C"
 #ifdef __cplusplus
 
 #define MAX_INSTANCE 4 // 最多支持 4 个串口实例
-#define RX_BUFFER_SIZE 27 // 接收缓冲区大小
+#define RX_BUFFER_SIZE 22 // 接收缓冲区大小
 #define Frame_Length 1
 #define MAX_DATA_LENGTH 16
 

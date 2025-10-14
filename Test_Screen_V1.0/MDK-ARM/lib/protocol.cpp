@@ -1,5 +1,8 @@
 #include "protocol.h"
 
+Subscriber *protocol::subscribers[MAX_SUBSCRIBERS] = {nullptr};
+int protocol::subscriberCount_ = 0;
+
 protocol::protocol( UART_HandleTypeDef *huart)
     : SerialDevice(huart)
 {
@@ -32,7 +35,7 @@ void Subscriber::addport(protocol *port_)
 void protocol::handleReceiveData(void)
 {
     
-    if (osMessageQueueGet(ReceiveQueue_, &frame_to_process, NULL, 0)  == osOK)
+    if (osMessageQueueGet(ReceiveQueue_, &frame_to_process,NULL,0)  == osOK)
     {
         for (int i = 0; i < subscriberCount_; i++)
         {
@@ -50,6 +53,8 @@ void protocol::handleReceiveData(void)
 
 __attribute__((section("dma_buffer_section"), aligned(4))) uint8_t sendBuffer_[24] = {0}; // 发送缓冲区，放到 AHB SRAM 的 DMA 段
 
+osStatus_t test_status2;
+
 bool protocol::processSendData(uint8_t ID,uint8_t length,const uint8_t *data)
 {
     //add the byte to the queue
@@ -64,28 +69,32 @@ bool protocol::processSendData(uint8_t ID,uint8_t length,const uint8_t *data)
     }
     tx_frame.trailer[0] = FRAME_TRAILER_0;
     tx_frame.trailer[1] = FRAME_TRAILER_1;
-    return (osMessageQueuePut(sendQueue_, &tx_frame, 0, 0) == osOK);
-}
+	test_status2 = osMessageQueuePut(sendQueue_, &tx_frame, 0, 0);
 
+    return (true);
+		}
 
+osStatus_t test_status;
 void protocol::SendData(void)
 {
     Frame frame_to_send;
-    osStatus_t status = osMessageQueueGet(sendQueue_, &frame_to_send, NULL, 0);// Non-blocking get
-    if (status == osOK)
+    osStatus_t test_status = osMessageQueueGet(sendQueue_, &frame_to_send, NULL, 0);// Non-blocking get
+    if (test_status == osOK)
     {
         // Prepare send buffer
         sendBuffer_[0] = frame_to_send.header[0];
         sendBuffer_[1] = frame_to_send.header[1];
-        sendBuffer_[2] = frame_to_send.length;
+        sendBuffer_[3] = frame_to_send.length;
+        sendBuffer_[2] = frame_to_send.ID;
+        //copy data
         for (int i = 0; i < frame_to_send.length; i++) // length only includes data length
         {
-            sendBuffer_[3 + i] = frame_to_send.data[i];
+            sendBuffer_[4 + i] = frame_to_send.data[i];
         }
-        sendBuffer_[frame_to_send.length + 3] = frame_to_send.trailer[0];
-        sendBuffer_[frame_to_send.length + 4] = frame_to_send.trailer[1];
+        sendBuffer_[frame_to_send.length + 4] = frame_to_send.trailer[0];
+        sendBuffer_[frame_to_send.length + 5] = frame_to_send.trailer[1];
         // Start DMA transmission
-        HAL_UART_Transmit_DMA(huart_, sendBuffer_, frame_to_send.length + 5); // Total length = header(2) + length(1) + data + trailer(2)
+        HAL_UART_Transmit_DMA(huart_, sendBuffer_, frame_to_send.length + 6); // Total length = header(2) + ID(1) + length(1) + data + trailer(2)
     }
 }
 

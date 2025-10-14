@@ -26,6 +26,7 @@ class Screen :public Subscriber
     void Task_screen();
     Frame frame_to_process;
     Frame frame_to_transfer;
+    char txmsg[20] = {0};
     char txbuffer[20] = {0};
     void TJC_process(char *page_name,uint8_t widget_ID,uint8_t* data);
     void TJC_Send();

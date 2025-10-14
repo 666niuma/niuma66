@@ -62,9 +62,8 @@ class protocol : public SerialDevice
     private:
     osMessageQueueId_t sendQueue_;
     osMessageQueueId_t MsgPool;
-    
-    Subscriber *subscribers[MAX_SUBSCRIBERS]; // 订阅者数组
-    uint8_t subscriberCount_ = 0;             // 订阅者数量
+    static Subscriber *subscribers[MAX_SUBSCRIBERS]; // 订阅者数组
+    static int subscriberCount_;             // 订阅者数量
 };
 
 #endif

@@ -59,14 +59,21 @@ osThreadId_t ScreenHandle;
 const osThreadAttr_t Screen_attributes = {
   .name = "Screen",
   .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityLow,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for Wireless */
 osThreadId_t WirelessHandle;
 const osThreadAttr_t Wireless_attributes = {
   .name = "Wireless",
   .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityLow,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for AsrPro */
+osThreadId_t AsrProHandle;
+const osThreadAttr_t AsrPro_attributes = {
+  .name = "AsrPro",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -77,6 +84,7 @@ const osThreadAttr_t Wireless_attributes = {
 void StartDefaultTask(void *argument);
 void Task_screen(void *argument);
 void Task_wireless(void *argument);
+void Task_asrpro(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -115,6 +123,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of Wireless */
   WirelessHandle = osThreadNew(Task_wireless, NULL, &Wireless_attributes);
+
+  /* creation of AsrPro */
+  AsrProHandle = osThreadNew(Task_asrpro, NULL, &AsrPro_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -178,6 +189,24 @@ __weak void Task_wireless(void *argument)
     osDelay(1);
   }
   /* USER CODE END Task_wireless */
+}
+
+/* USER CODE BEGIN Header_Task_asrpro */
+/**
+* @brief Function implementing the AsrPro thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Task_asrpro */
+__weak void Task_asrpro(void *argument)
+{
+  /* USER CODE BEGIN Task_asrpro */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Task_asrpro */
 }
 
 /* Private application code --------------------------------------------------*/

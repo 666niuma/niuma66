@@ -595,6 +595,26 @@
               <FileType>8</FileType>
               <FilePath>.\APP\Screen.cpp</FilePath>
             </File>
+            <File>
+              <FileName>WireLess.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\APP\WireLess.h</FilePath>
+            </File>
+            <File>
+              <FileName>WireLess.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\APP\WireLess.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>asrpro.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\APP\asrpro.h</FilePath>
+            </File>
+            <File>
+              <FileName>asrpro.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\APP\asrpro.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

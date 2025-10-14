@@ -3,6 +3,9 @@
 protocol ScreenProtocol(&huart2); // 创建 protocol 实例
 Screen screen; // 创建 Screen 实例
 
+int test_temp = 0;
+
+
 void Screen::DataReceivedCallback(uint8_t ID,uint8_t length,const uint8_t *byte)
 {
     if (ID == 0x73 || ID == 0x53) // receive data from screen, 's' or 'S'
@@ -27,6 +30,7 @@ void Screen::DataReceivedCallback(uint8_t ID,uint8_t length,const uint8_t *byte)
 
 void Screen::ScreenInit()
 {
+    
     screen.addport(&ScreenProtocol); // 将 Screen 实例注册到 protocol 实例
     ScreenProtocol.initReceiveQueue(); // 初始化接收队列
     ScreenProtocol.initQueue(); // 初始化发送队列
@@ -73,16 +77,13 @@ void Screen::MAJORPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data)
     frame_to_transfer.data[0] = 0X4D; // 'M'
     frame_to_transfer.data[1] = 0X41; // 'A'
     frame_to_transfer.data[2] = 0X4A; // 'J'
-    page_name[0] = 'm';
-    page_name[1] = 'a';
-    page_name[2] = 'j';
-    page_name[3] = 'o';
-    page_name[4] = 'r';
+    strcpy(page_name, "major");
     // Handle major page data
     if (ID == 0x53) //S for receive from internal
     {
-        TJC_process(page_name,widget_ID,data);
-        osMessageQueuePut(TJC_Queue_, &txbuffer, 0, 0);
+        
+        //TJC_process(page_name,widget_ID,data);
+        //osMessageQueuePut(TJC_Queue_, &txmsg, 0, 0);
     }
     if (ID == 0x73)
     {
@@ -91,12 +92,12 @@ void Screen::MAJORPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data)
         frame_to_transfer.data[3] = 0X53; // 'S'
         if (data[0] & 0x80)
         {
-
-            
+            test_temp = 1;
             frame_to_transfer.data[4] = 0x80;
             frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
             transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
-            
         }
         else if (data[0] & 0x40)
         {
@@ -251,13 +252,7 @@ void Screen::SETTINGSPAGE(uint8_t ID,uint8_t widget_ID,uint8_t* data)
     frame_to_transfer.data[0] = 0X53; // 'S'
     frame_to_transfer.data[1] = 0X45; // 'E'
     frame_to_transfer.data[2] = 0X54; // 'T'
-    page_name[0] = 's';
-    page_name[1] = 'e';
-    page_name[2] = 't';
-    page_name[3] = 't';
-    page_name[4] = 'i';
-    page_name[5] = 'n';
-    page_name[6] = 'g';
+    strcpy(page_name, "set");
      if (ID == 0x73)
     {
         if (widget_ID == 0x53) //switch
@@ -325,26 +320,26 @@ void Screen::TJC_process(char *page_name,uint8_t widget_ID,uint8_t *data)//拼�
     { 
         if (data[0] & 0x01)
         {
-            sprintf(txbuffer, "%s.n%d.val=%d", page_name,data[0],data[1]);
+            sprintf(txmsg, "%s.n%d.val=%d", page_name,data[0],data[1]);
         }
     }
     if (widget_ID == 0x6A) //j  可以用作进度条
     {
-    sprintf(txbuffer, "%s.j%d.val=%d", page_name,data[0],data[1]);
+    sprintf(txmsg, "%s.j%d.val=%d", page_name,data[0],data[1]);
     }
 }    
 
 void Screen::TJC_Send()
 {
     osMessageQueueGet(TJC_Queue_, &txbuffer, NULL, 0);
-    HAL_UART_Transmit_DMA(&huart2, (uint8_t *)txbuffer, strlen(txbuffer));// 如果在上层专门写个函数取得huart_句柄不够优雅，在这里直接调用终端了
+    HAL_UART_Transmit_DMA(&huart2, (uint8_t *)txbuffer, strlen(txbuffer));// 如果在上层专门写个函数为陶晶驰串口屏取得huart_句柄不够优雅，在这里直接调用终端了
 }
 
 void Screen::Task_screen()
 {
     ScreenProtocol.handleReceiveData(); // 处理接收的数据
     //ScreenProtocol.SendData(); // 发送数据
-    TJC_Send();
+    //TJC_Send();
 }
 
 extern "C" void Task_screen(void *argument)
@@ -357,15 +352,3 @@ extern "C" void Task_screen(void *argument)
     }
 }
 
-//extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-//{
-//    
-//    
-//        if (Rx[0] == 0x5A)
-//        {
-//            HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);//test
-//						Rx[0] = 0x00;
-//        }
-//    
-//		HAL_UART_Receive_IT(&huart2, Rx, 1);
-//}
