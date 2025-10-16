@@ -34,7 +34,7 @@ void SerialDevice::startUartReceiveIT()
         rx_index =0;// reset
         check_Byte[0] = 0;
         check_Byte[1] = 0;
-
+        memset(rxBuffer_, 0, sizeof(rxBuffer_)); // clear the buffer
         HAL_UART_Receive_IT(huart_, rxByte, 1);
 
     }
@@ -49,7 +49,15 @@ osStatus_t status;
      {
          if (SerialDevice::obArr[i]->huart_ == huart)
          {
-            
+            if (SerialDevice::obArr[i]->rx_index == 0) // 还没开始接收任何帧
+            {
+                if (SerialDevice::obArr[i]->rxByte[0] != 0x21) // 你的帧头字节，可改为任意值
+                {
+                HAL_UART_Receive_IT(huart, SerialDevice::obArr[i]->rxByte, 1);
+                return;
+                }
+                // 如果不是帧头，就丢弃继续接收
+            }
              // for overflow check
              if (SerialDevice::obArr[i]->rx_index < sizeof(SerialDevice::obArr[i]->rxBuffer_))
              {

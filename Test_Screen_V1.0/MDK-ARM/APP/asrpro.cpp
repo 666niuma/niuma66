@@ -1,6 +1,6 @@
 #include "asrpro.h"
 
-protocol ASRProProtocol(&huart1); // create protocol instance
+protocol ASRProProtocol(&huart3); // create protocol instance
 ASRPro asrpro; // create ASRPro instance
 
 

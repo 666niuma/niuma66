@@ -315,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -614,6 +614,16 @@
               <FileName>asrpro.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\APP\asrpro.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>joystick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\APP\joystick.h</FilePath>
+            </File>
+            <File>
+              <FileName>joystick.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\APP\joystick.cpp</FilePath>
             </File>
           </Files>
         </Group>

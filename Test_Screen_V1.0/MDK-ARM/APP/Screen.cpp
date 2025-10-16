@@ -92,8 +92,9 @@ void Screen::MAJORPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data)
         frame_to_transfer.data[3] = 0X53; // 'S'
         if (data[0] & 0x80)
         {
+			HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
             test_temp = 1;
-            frame_to_transfer.data[4] = 0x80;
+            frame_to_transfer.data[4] = 0x80; 
             frame_to_transfer.ID = 0x57; // W for Wireless
             // for different use, different ID
             frame_to_transfer.length = 5; // length only includes data length
@@ -211,29 +212,114 @@ void Screen::MINORPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data)
     if (widget_ID == 0x42)
     {
         if (data[0] == 0x01)
-        {}
+        {
+					HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x01;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x02)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x02;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x03)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x03;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x04)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x04;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x05)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x05;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x06)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x06;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x07)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x07;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x08)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x08;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x09)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x09;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x0A)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x0A;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x0B)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x0B;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x0C)
-        {}
+        {
+            frame_to_transfer.data[3] = 0X42; // 'B'
+            frame_to_transfer.data[4] = 0x0C;
+            frame_to_transfer.ID = 0x57; // W for Wireless
+            // for different use, different ID
+            frame_to_transfer.length = 5; // length only includes data length
+            transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data);
+        }
         else if (data[0] == 0x0D)
         {}
         else if (data[0] == 0x0E)

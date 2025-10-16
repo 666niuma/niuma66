@@ -36,6 +36,7 @@
 "test_screen_v1.0\screen.o"
 "test_screen_v1.0\wireless.o"
 "test_screen_v1.0\asrpro.o"
+"test_screen_v1.0\joystick.o"
 "test_screen_v1.0\my_uart.o"
 "test_screen_v1.0\protocol.o"
 --strict --scatter "Test_Screen_V1.0\Test_Screen_V1.sct"
