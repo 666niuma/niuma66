@@ -72,13 +72,13 @@ bool protocol::processSendData(uint8_t ID,uint8_t length,const uint8_t *data)
 	test_status2 = osMessageQueuePut(sendQueue_, &tx_frame, 0, 0);
 
     return (true);
-		}
+}
 
 osStatus_t test_status;
 void protocol::SendData(void)
 {
     Frame frame_to_send;
-    osStatus_t test_status = osMessageQueueGet(sendQueue_, &frame_to_send, NULL, 0);// Non-blocking get
+    test_status = osMessageQueueGet(sendQueue_, &frame_to_send, NULL, 0);// Non-blocking get
     if (test_status == osOK)
     {
         // Prepare send buffer
@@ -137,3 +137,11 @@ bool protocol::TransferData(uint8_t ID,uint8_t length,const uint8_t *data)
     return true;
 }
 
+void Subscriber::get_uart()
+{
+    if (serialport_ != nullptr && serialport_->huart_ != nullptr)
+    {
+        uart_ = serialport_->huart_;
+        // Now you can use huart as needed
+    }
+}

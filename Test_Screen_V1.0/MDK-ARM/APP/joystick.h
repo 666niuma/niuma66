@@ -16,11 +16,11 @@ extern "C"
 
 
 
-class joystick :public Subscriber
+class JOYStick :public Subscriber
 {
     public:
     void DataReceivedCallback(uint8_t ID,uint8_t length,const uint8_t *byte) override; // data callback
-    joystick() = default;
+    JOYStick() = default;
     void Joystick_init();
     void Scan();
     void Task_Joystick();

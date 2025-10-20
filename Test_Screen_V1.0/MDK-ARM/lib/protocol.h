@@ -27,7 +27,7 @@ extern "C"
 #define FRAME_TRAILER_0 0x26
 #define FRAME_TRAILER_1 0x2A
 
-#define MAX_SUBSCRIBERS 4
+#define MAX_SUBSCRIBERS 6
 
 
 class protocol;
@@ -41,6 +41,8 @@ public:
     bool sendData(uint8_t ID,uint8_t length,const uint8_t *data);
     bool transferData(uint8_t ID,uint8_t length,const uint8_t *data);
     void addport(protocol *port_);
+    void get_uart();
+    UART_HandleTypeDef *uart_ = nullptr;
 private:
     protocol *serialport_ = nullptr;
 };

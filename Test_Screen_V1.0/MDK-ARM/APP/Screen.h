@@ -19,6 +19,7 @@ class Screen :public Subscriber
     Screen() = default;
     void DataReceivedCallback(uint8_t ID,uint8_t length,const uint8_t *byte) override; // data callback
     void processData(uint8_t ID,uint8_t *page,uint8_t widget_ID,uint8_t *data); // process the data
+    void processBatteryData(uint8_t data); // process battery data
     void MAJORPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data); // major page
     void MINORPAGE(uint8_t ID,uint8_t Iwidget_ID,uint8_t *data); // minor page
     void SETTINGSPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data); // settings page

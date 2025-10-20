@@ -15,8 +15,7 @@ void Screen::DataReceivedCallback(uint8_t ID,uint8_t length,const uint8_t *byte)
             page[i] = byte[i];
         }
         widget_ID = byte[3];
-        if (length == 5)
-            data[0] = byte[4];
+        if (length == 5){data[0] = byte[4];}
         else
         {
             for (int i = 0; i < length - 4; i++)
@@ -37,22 +36,19 @@ void Screen::ScreenInit()
     TJC_Queue_ = osMessageQueueNew(5, sizeof(txbuffer), NULL);
     // init the index
     screen.widget_ID = 0;
-    for (int i = 0; i < 16; i++)
-    {
-        screen.data[i] = 0;
-    }
-    
-    for (int i = 0; i < 3; i++)
-    {
-        screen.page[i] = 0;
-    }
-	
+
+    memset(screen.page, 0, sizeof(screen.page));
+    memset(screen.txmsg, 0, sizeof(screen.txmsg));
+    memset(screen.txbuffer, 0, sizeof(screen.txbuffer));
+    memset(screen.data, 0, sizeof(screen.data));
+
     frame_to_transfer.header[0] = FRAME_HEADER_0;
     frame_to_transfer.header[1] = FRAME_HEADER_1;
     // different length for different use
     // different ID for different use
     frame_to_transfer.trailer[0] = FRAME_TRAILER_0;
     frame_to_transfer.trailer[1] = FRAME_TRAILER_1;
+    get_uart(); // 获取 UART 句柄
     ScreenProtocol.startUartReceiveIT(); // 启动 UART 接收中断
 }
 
@@ -81,7 +77,11 @@ void Screen::MAJORPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data)
     // Handle major page data
     if (ID == 0x53) //S for receive from internal
     {
-        
+        if (widget_ID == 0x6E)
+        {
+            TJC_process(page_name,widget_ID,data);
+            osMessageQueuePut(TJC_Queue_, &txmsg, 0, 0);
+        }
         //TJC_process(page_name,widget_ID,data);
         //osMessageQueuePut(TJC_Queue_, &txmsg, 0, 0);
     }
@@ -92,7 +92,7 @@ void Screen::MAJORPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data)
         frame_to_transfer.data[3] = 0X53; // 'S'
         if (data[0] & 0x80)
         {
-			HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
+			
             test_temp = 1;
             frame_to_transfer.data[4] = 0x80; 
             frame_to_transfer.ID = 0x57; // W for Wireless
@@ -213,7 +213,6 @@ void Screen::MINORPAGE(uint8_t ID,uint8_t widget_ID,uint8_t *data)
     {
         if (data[0] == 0x01)
         {
-					HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);
             frame_to_transfer.data[3] = 0X42; // 'B'
             frame_to_transfer.data[4] = 0x01;
             frame_to_transfer.ID = 0x57; // W for Wireless
@@ -404,28 +403,30 @@ void Screen::TJC_process(char *page_name,uint8_t widget_ID,uint8_t *data)//拼�
 {
     if (widget_ID == 0x6E) // n for number
     { 
-        if (data[0] & 0x01)
+        if (data[0] == 0x00)
         {
-            sprintf(txmsg, "%s.n%d.val=%d", page_name,data[0],data[1]);
+            sprintf(txmsg, "%s.n%d.val=%d\xff\xff\xff", page_name,data[0],data[1]);
         }
     }
     if (widget_ID == 0x6A) //j  可以用作进度条
     {
-    sprintf(txmsg, "%s.j%d.val=%d", page_name,data[0],data[1]);
+    sprintf(txmsg, "%s.j%d.val=%d\xff\xff\xff", page_name,data[0],data[1]);
     }
 }    
 
 void Screen::TJC_Send()
 {
-    osMessageQueueGet(TJC_Queue_, &txbuffer, NULL, 0);
-    HAL_UART_Transmit_DMA(&huart2, (uint8_t *)txbuffer, strlen(txbuffer));// 如果在上层专门写个函数为陶晶驰串口屏取得huart_句柄不够优雅，在这里直接调用终端了
+    if(osMessageQueueGet(TJC_Queue_, &txbuffer, NULL, 0) == osOK)
+    {
+    HAL_UART_Transmit_DMA(uart_, (uint8_t *)txbuffer, strlen(txbuffer));
+    }
 }
 
 void Screen::Task_screen()
 {
     ScreenProtocol.handleReceiveData(); // 处理接收的数据
     //ScreenProtocol.SendData(); // 发送数据
-    //TJC_Send();
+    TJC_Send();
 }
 
 extern "C" void Task_screen(void *argument)

@@ -68,12 +68,19 @@ const osThreadAttr_t Wireless_attributes = {
   .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-/* Definitions for AsrPro */
-osThreadId_t AsrProHandle;
-const osThreadAttr_t AsrPro_attributes = {
-  .name = "AsrPro",
+/* Definitions for DFPlayer */
+osThreadId_t DFPlayerHandle;
+const osThreadAttr_t DFPlayer_attributes = {
+  .name = "DFPlayer",
   .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for ADC */
+osThreadId_t ADCHandle;
+const osThreadAttr_t ADC_attributes = {
+  .name = "ADC",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -84,7 +91,8 @@ const osThreadAttr_t AsrPro_attributes = {
 void StartDefaultTask(void *argument);
 void Task_screen(void *argument);
 void Task_wireless(void *argument);
-void Task_asrpro(void *argument);
+void Task_dfplayer(void *argument);
+void Task_adc(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -124,8 +132,11 @@ void MX_FREERTOS_Init(void) {
   /* creation of Wireless */
   WirelessHandle = osThreadNew(Task_wireless, NULL, &Wireless_attributes);
 
-  /* creation of AsrPro */
-  AsrProHandle = osThreadNew(Task_asrpro, NULL, &AsrPro_attributes);
+  /* creation of DFPlayer */
+  DFPlayerHandle = osThreadNew(Task_dfplayer, NULL, &DFPlayer_attributes);
+
+  /* creation of ADC */
+  ADCHandle = osThreadNew(Task_adc, NULL, &ADC_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -191,22 +202,40 @@ __weak void Task_wireless(void *argument)
   /* USER CODE END Task_wireless */
 }
 
-/* USER CODE BEGIN Header_Task_asrpro */
+/* USER CODE BEGIN Header_Task_dfplayer */
 /**
-* @brief Function implementing the AsrPro thread.
+* @brief Function implementing the DFPlayer thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_Task_asrpro */
-__weak void Task_asrpro(void *argument)
+/* USER CODE END Header_Task_dfplayer */
+__weak void Task_dfplayer(void *argument)
 {
-  /* USER CODE BEGIN Task_asrpro */
+  /* USER CODE BEGIN Task_dfplayer */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END Task_asrpro */
+  /* USER CODE END Task_dfplayer */
+}
+
+/* USER CODE BEGIN Header_Task_adc */
+/**
+* @brief Function implementing the ADC thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Task_adc */
+__weak void Task_adc(void *argument)
+{
+  /* USER CODE BEGIN Task_adc */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END Task_adc */
 }
 
 /* Private application code --------------------------------------------------*/
