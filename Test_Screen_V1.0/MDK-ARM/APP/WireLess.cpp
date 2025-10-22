@@ -1,6 +1,6 @@
 #include "WireLess.h"
 
-protocol WireLessProtocol(&huart1); // create protocol instance
+protocol WireLessProtocol(&huart3); // create protocol instance
 WireLess wireless; // create WireLess instance
 int test_temp2 = 0;
 void WireLess::WireLess_init()

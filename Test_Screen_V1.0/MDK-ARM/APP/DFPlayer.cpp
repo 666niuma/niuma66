@@ -1,6 +1,6 @@
 #include "DFPlayer.h"
 
-protocol DFPlayerProtocol(&huart3); // 创建 protocol 实例 这个不需要接受所以不用初始化接收队列
+protocol DFPlayerProtocol(&huart1); // 创建 protocol 实例 这个不需要接受所以不用初始化接收队列
 DFPlayer dfplayer; // 创建 DFPlayer 实例
 
 
@@ -13,6 +13,9 @@ void DFPlayer::DFPlayer_init()
     memset(dfplayer.tx_msg, 0, sizeof(dfplayer.tx_msg));
     memset(dfplayer.tx_buffer, 0, sizeof(dfplayer.tx_buffer));
     get_uart(); // 获取 UART 句柄
+		osDelay(1000);
+    DF_pack(0x03,0x00,0x01); // 播放上电初始音乐
+    DF_play();
 }
 
 void DFPlayer::DataReceivedCallback(uint8_t ID, uint8_t length, const uint8_t *byte)

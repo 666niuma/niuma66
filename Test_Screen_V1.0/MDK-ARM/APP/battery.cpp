@@ -15,7 +15,7 @@ void Battery :: GetVoltage(uint32_t voltage)
 void Battery :: ReadBatteryVoltage_Averaged(void)
 {
 
-    float voltage = batteryVoltage * ADC_TO_BATT_CONST;
+    float voltage = Battery_fliter(batteryVoltage) * ADC_TO_BATT_CONST;
     // 可选：指数移动平均，减少突发跳变
     if (smoothedVoltage == 0.0f) smoothedVoltage = voltage;
     smoothedVoltage = EMA_ALPHA * voltage + (1.0f - EMA_ALPHA) * smoothedVoltage;
@@ -49,4 +49,31 @@ void Battery::Task_Battery()
     frame_to_transfer.data[5] = batteryPercentage; // battery percentage
     transferData(frame_to_transfer.ID,frame_to_transfer.length,frame_to_transfer.data); // 'S' ID 发送给屏幕
     BatteryProtocol.handleReceiveData();
+}
+
+
+uint32_t Battery::Battery_fliter(uint32_t voltage)
+{
+    static std::array<uint32_t, 5> window = {0};
+        static uint8_t index = 0;
+
+        window[index] = voltage;
+        index = (index + 1) % window.size();
+
+        // 复制一份用于排序求中位数
+        auto temp = window;
+        std::sort(temp.begin(), temp.end());
+        uint32_t median = temp[temp.size() / 2];
+
+        // --- 平滑滤波（指数平均） ---
+        if (!initialized_) {
+            filtered_adc_value = median;
+            initialized_ = true;
+        } else {
+            const float alpha = 0.1f;  // 越小越平滑
+            filtered_adc_value = static_cast<uint32_t>(
+                alpha * median + (1.0f - alpha) * filtered_adc_value);
+        }
+
+        return filtered_adc_value;
 }
